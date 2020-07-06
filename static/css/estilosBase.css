@@ -1,0 +1,95 @@
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    background-image: url(../img/fondo.jpg);
+}
+
+h1{
+    text-align: center;
+    font-size: 50px;
+    color: whitesmoke;
+}
+
+.contenedor_cajas{
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    padding: 2vw;
+    top: 20vh;
+    width: 25rem;
+    height: 20rem;
+    font-size: 1.3vw;
+    background-color: rgb(255, 245, 238,0.5);
+}
+
+.form_login{
+    display: grid;
+    padding-left: 1vw;
+}
+
+.form_login input{
+    border: 0;
+    width: 15vw;
+    height: 2vw;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    border-radius: 5px;
+    background-color: rgb(240, 185, 84);
+    font-size: 15px;
+}
+
+.form_login input:hover{
+    box-shadow: 2px 3px 15px gray;
+}
+
+.form_login input:focus{
+    background-color: #ffbd69;
+}
+
+.form_login li{
+    font-size: 0.7vw;
+    padding: -3px;
+}
+
+#archivo {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+label[for="archivo"]{
+    border: 0;
+    width: 15vw;
+    height: 2vw;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    border-radius: 5px;
+    padding-top: 1vh;
+    padding-left: 1vh;
+    background-color: rgb(240, 185, 84);
+    font-size: 1.1vw;
+}
+
+#archivo:hover{
+    box-shadow: none;
+}
+
+label[for="archivo"]:hover{
+    box-shadow: 2px 3px 15px gray;
+}
+
+.messages{
+    text-decoration: none;
+    list-style: none;
+    font-size: 30px;
+    background-color: gray;
+    color: white;
+    text-shadow: black;
+}

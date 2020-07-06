@@ -1,0 +1,14 @@
+{%extends 'base.html'%}
+{% block section_1 %}
+    <section class="section_log">
+        <div class="contenedor_cajas">
+            {% from "_macro.html" import render_field %}
+            <form class="form_login" method="POST">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                {{ render_field(form.username) }}
+                {{ render_field(form.password) }}
+                <input type="submit" value="Ingresar">
+            </form>    
+        </div>
+    </section>
+{% endblock %}

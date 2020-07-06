@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/estilosBase.css')}}">
+    <title>Document</title>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            setTimeout(function(){
+                $(".content").fadeIn(1500);
+            },3000);
+        });
+    </script>
+    
+    <script type="text/javascript">
+    $(document).ready(function() {
+        setTimeout(function() {
+            $(".content").fadeOut(1500);
+        },3000);
+     
+        setTimeout(function() {
+            $(".content2").fadeIn(1500);
+        },6000);
+    });
+    </script>
+
+</head>
+<body>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="messages content">
+                {% for message in messages %}
+                    <li>{{message}}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <h1>VOXCALL</h1>
+    {%block section_1 %}
+    {%endblock%}    
+</body>
+</html>

@@ -1,0 +1,24 @@
+{%extends 'base.html'%}
+{% block section_1 %}
+    <section class="section_log">
+        <div class="contenedor_cajas">
+            {% from "_macro.html" import render_field %}
+            <form class="form_login" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <label>Archivo a importar</label>
+                {{ render_field(form.archivo) }}
+                <div class="muestra"></div>
+                <input type="submit" value="Subir archivo">
+            </form>    
+        </div>
+    </section>
+    <script type="application/javascript">
+    const selector = document.getElementById('archivo');
+
+    selector.addEventListener('change', (event) => {
+        const muestra = document.querySelector('.muestra');
+        const nombre = document.getElementById('archivo').files[0].name;
+        muestra.textContent = nombre;
+    });
+    </script>    
+{% endblock %}

@@ -1,0 +1,21 @@
+{%extends 'base.html'%}
+{% block section_1 %}
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Teléfono</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for dato in datos%}
+                <tr>
+                    <td><input type="text" name="" id="" value="{{dato[0]}}"></td>
+                    <td><input type="text" name="" id="" value="{{dato[1]}}"></td>
+                    <td><input type="text" name="" id="" value="{{dato[2]}}"></td>
+                </tr>
+            {%endfor%}
+        </tbody>        
+    </table>
+{% endblock %}
