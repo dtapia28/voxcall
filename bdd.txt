@@ -1,0 +1,6 @@
+Juan,Araya,943678321
+Carlos,Nuñez,921765469
+Carolina,Fernandez,943789231
+Francisca,Patiño,932789341
+Eduardo,Gonzalez,987967437
+Camilo,Astudillo,976547981

@@ -11,5 +11,7 @@ class LoginForm(Form):
     password = PasswordField(u'Contraseña',[validators.required(), validators.length(min=5, message="Ingrese una contraseña valida")])
 
 class ImportExcel(Form):
+    style={'class':'title_import'}
     archivo = FileField(u'Seleccionar archivo',
-            [validators.required()])
+            [validators.required()],
+            render_kw=style)

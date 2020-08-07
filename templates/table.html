@@ -1,21 +1,29 @@
-{%extends 'base.html'%}
+{%extends 'base2.html'%}
 {% block section_1 %}
-    <table>
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Teléfono</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for dato in datos%}
-                <tr>
-                    <td><input type="text" name="" id="" value="{{dato[0]}}"></td>
-                    <td><input type="text" name="" id="" value="{{dato[1]}}"></td>
-                    <td><input type="text" name="" id="" value="{{dato[2]}}"></td>
-                </tr>
-            {%endfor%}
-        </tbody>        
-    </table>
+    <div class="contenedor-table">
+        <h1>Confirmar datos importados</h1>
+        <form action="/validate" method="POST">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="cantidad" value="{{cantidad}}">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Teléfono</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for canti in cantidad%}
+                        <tr>
+                            <td><input type="text" name="nombre{{canti}}" id="" value="{{datos[canti][0]}}"></td>
+                            <td><input type="text" name="apellido{{canti}}" id="" value="{{datos[canti][1]}}"></td>
+                            <td><input type="text" name="phone{{canti}}" id="" value="{{datos[canti][2]}}"></td>
+                        </tr>
+                    {%endfor%}
+                </tbody>        
+            </table>
+            <input type="submit" class="btn-confirmar" value="Confirmar datos">
+        </form>    
+    </div>    
 {% endblock %}

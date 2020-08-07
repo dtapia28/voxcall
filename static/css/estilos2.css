@@ -1,0 +1,279 @@
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    background-image: url(../img/fondo.jpg);
+}
+
+h1{
+    text-align: center;
+    font-size: 50px;
+    color: whitesmoke;
+}
+
+.contenedor_cajas{
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    padding: 2vw;
+    top: 20vh;
+    width: 25rem;
+    height: rem;
+    font-size: 1.3vw;
+    background-color: rgb(255, 245, 238,0.5);
+}
+
+.form_login{
+    display: grid;
+    padding-left: 1vw;
+}
+
+.form_login input{
+    border: 0;
+    width: 15vw;
+    height: 2vw;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    border-radius: 5px;
+    background-color: rgb(240, 185, 84);
+    font-size: 15px;
+}
+
+.form_login input:hover{
+    box-shadow: 2px 3px 15px gray;
+}
+
+.form_login input:focus{
+    background-color: #ffbd69;
+}
+
+.form_login li{
+    font-size: 0.7vw;
+    padding: -3px;
+}
+
+#archivo {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+label[for="archivo"]{
+    border: 0;
+    width: 15vw;
+    height: 2vw;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    border-radius: 5px;
+    padding-top: 1vh;
+    padding-left: 1vh;
+    background-color: rgb(240, 185, 84);
+    font-size: 1.1vw;
+}
+
+#archivo:hover{
+    box-shadow: none;
+}
+
+label[for="archivo"]:hover{
+    box-shadow: 2px 3px 15px gray;
+}
+
+.messages{
+    text-decoration: none;
+    list-style: none;
+    font-size: 30px;
+    background-color: gray;
+    color: white;
+    text-shadow: black;
+}
+
+.contenedor-table {
+    position: relative;
+    left: 25vw;
+    width: 75vw;
+}
+
+.btn-confirmar{
+    position: absolute;
+    right: 1vw;
+    bottom: -5vh;
+    background-color: rgb(240, 185, 84);
+}
+
+.contenedor-table input[type="text"]{
+    width: 50%;
+    left: 0px;
+    background-color: rgb(240, 185, 84);
+}
+
+th {
+    left: 0px;
+    text-align: left;
+    width: 7vw;
+}
+
+@media screen and (min-width: 400px) and (max-width: 767px){
+
+    body{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: sans-serif;
+    }
+
+    .contenedor_cajas{
+        width: 80%;
+        left: 5%;
+        right: 5%;
+        height: 25rem;
+        position: absolute;
+        top: 10rem;
+    }
+    
+    .form_login{
+        height: 70%;
+        width: 80%;
+        font-size: 300%;
+        padding-left: 5%;
+        padding-top: 5%;
+    }
+
+    .form_login input{
+        width: 95%;
+        height: 3rem;
+        top: 1rem;
+    }
+
+    .form_login [type="submit"]{
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 1rem;
+    }   
+
+    .form_login label{
+        width: 100%;
+        font-size: 1.5rem;
+        height: 2rem;
+    }
+
+    .form_login li{
+        font-size: 1rem;
+        padding: -3px;
+    }
+
+    .title_import{
+        font-size: 2rem;
+
+    }
+
+    .contenedor-table {
+        position: relative;
+        left: 2.5vw;
+        width: 95vw;
+    }
+    .contenedor-table input[type="text"]{
+        width: 55%;
+        left: 0px;
+        font-size: 1rem;
+        background-color: rgb(240, 185, 84);
+    }
+    
+    th {
+        left: 0px;
+        text-align: left;
+        width: 7vw;
+    }
+
+    h1 {
+        position: relative;
+        left: 1rem;
+        width: 90%;
+        font-size: 2rem;
+        text-align: left; 
+    }
+
+    .menu {
+        background-color: rgb(255, 245, 238,0.5);
+        width: 85%;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+    }
+
+    .menu ul{
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        width: 90%;
+    }
+
+    .menu ul li{
+        display: inline-block;
+        padding-right: 1.4rem;
+        padding-left: 0.5rem;
+        padding-top: 0.3rem;
+        padding-bottom: 0.3rem;
+    }
+
+    .menu ul li a{
+        display: block;
+        text-decoration: none;
+        font-size: 1.5rem;
+        color: black;
+    }
+
+    .contenedor_1{
+        width: 80vw;
+    }
+
+    .form_contact input{
+        height: 3rem;
+        background-color: rgb(240, 185, 84);
+    }
+
+    .email {
+        width: 77vw;
+    }
+
+    .name {
+        width: 35vw;
+    }
+    .phone {
+        width: 40vw;
+    }
+
+    textarea {
+        resize: none;
+        background-color: rgb(240, 185, 84);
+        color: black;
+    }
+
+    .inp_form {
+        color: black;
+        border-radius: 5px;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .inp_form:hover{
+        box-shadow: 2px 3px 15px gray;
+    }
+    
+    .inp_form:focus{
+        background-color: #ffbd69;
+    }
+
+    .btn_submit_contact{
+        background-color: rgb(240, 185, 84);
+        border-radius: 5px;
+        padding: 3px;
+        font-size: 20px;
+    }
+}

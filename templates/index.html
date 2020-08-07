@@ -5,9 +5,16 @@
             {% from "_macro.html" import render_field %}
             <form class="form_login" method="POST">
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                {{ render_field(form.username) }}
-                {{ render_field(form.password) }}
-                <input type="submit" value="Ingresar">
+                <div class="input_username">
+                    {{ render_field(form.username) }}
+                </div>
+                <div class="input_password">
+                    {{ render_field(form.password) }}
+                </div>
+                <div class="input_submit">
+                    <input type="submit" value="Ingresar">
+                </div>
+                
             </form>    
         </div>
     </section>
