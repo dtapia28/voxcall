@@ -1,16 +1,20 @@
 from flask import Flask, jsonify
 from flask import render_template
 from flask import request
-from flask_mail import Mail
+from flask import session
+from flask_mail import Mail, Message
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import session
-from flask_wtf import CsrfProtect
+from flask_wtf.csrf import CSRFProtect
 from flask import flash
 import pyexcel
 import os
 
+from config import DevelopmentConfig
+
 UPLOAD_FOLDER = os.path.abspath("../proyecto nuevo/")
 
+from models import db, User
 from flask import url_for
 from flask import redirect
 
@@ -19,15 +23,19 @@ import forms
 mail = Mail()
 
 app = Flask(__name__)
+app.config.from_object(DevelopmentConfig)
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
-app.secret_key = 'itconsultants_2020_proyecto_Voxcall'
-csrf = CsrfProtect(app)
+csrf = CSRFProtect()
 mail.init_app(app)
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html')
 
 @app.route('/', methods=['GET','POST'])
 def index():
     login_form = forms.LoginForm(request.form)
-    if request.method == 'POST' and login_form.validate():
+    if request.method == 'POST' and login_form.validate(): 
         username = login_form.username.data
         success_message = 'Bienvenido {}'.format(username)
         password = generate_password_hash(login_form.password.data)
@@ -42,6 +50,21 @@ def logout():
     if 'username' in session:
         session.pop('username')
     return redirect(url_for('index'))
+
+@app.route('/user/create', methods=['GET','POST'])
+def create_user():
+    create_form = forms.CreateUser(request.form)
+    if request.method == 'POST' and create_form.validate():
+        user = User(create_form.username.data,
+                    create_form.email.data,
+                    create_form.password.data)
+
+        db.session.add(user)
+        db.session.commit()            
+        success_message = "Usuario registrado correctamente"
+        flash(success_message)
+    else:    
+        return render_template('create_user.html', form = create_form)
 
 
 
@@ -94,4 +117,10 @@ def contact():
             return render_template('contact.html')
 
 if __name__=='__main__':
-    app.run(debug=True)
+    csrf.init_app(app)
+    db.init_app(app)
+    mail.init_app(app)
+
+    with app.app_context():
+        db.create_all()
+    app.run()

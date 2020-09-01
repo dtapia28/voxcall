@@ -191,4 +191,13 @@ th {
         text-align: left;
         width: 7vw;
     }
+
+    .img_404 {
+        width: 100%;
+    }
+
+    .sub_404 {
+        color: white;
+        font-size: 1.5rem;
+    }
 }
