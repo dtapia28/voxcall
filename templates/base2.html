@@ -28,41 +28,7 @@
     });
     </script>
     <script type="text/javascript">
-        const voximplant = VoxImplant.getInstance();
-        try {
-            voximplant.init();
-            // SDK initialized
-            console.log("SDK inicializado");
-            voximplant.addEventListener(VoxImplant.Events.ConnectionClosed, () => {
-            // Connection was closed
-            console.log("Se cerró la conexión");
-            });
-            try {
-                voximplant.connect();
-            // Connection was established successfully
-                console.log("La conexión se estableció correctamente");
-            } catch (e) {
-                // Connection failed
-                console.log("La conexión falló");
-            }
-        } catch (e) {
-            // SDK init failure
-            console.log("Error de inicio del SDK");
-        }
 
-        try {
-        // Change "appname" and "accname" to names of your application and account,
-        // "username" and "password" to name and password of user created via
-        // the control panel.
-        voximplant.login("itcdaniel@voxcall.itcdaniel.n2.voximplant.com",
-        "danielitc2020");
-        console.log("Éxito en la autorización");
-        // Authorization success
-        } catch (e) {
-        // Authorization failure
-        console.log("Falla en la autorización");
-        }        
-    
     </script>
 </head>
 <body>
@@ -79,9 +45,9 @@
     <section class="section_log">
         <div class="menu">
             <ul>
-                <li><a href="/">Histórico</a></li>
-                <li><a href="/import">Importar</a></li>
-                <li><a href="/contact">Contacto</a></li>
+                <li class="li_1"><a href="/">Histórico</a></li>
+                <li class="li_2"><a href="/import">Importar</a></li>
+                <li class="li_3"><a href="/contact">Contacto</a></li>
             </ul>
         </div>
     </section>
