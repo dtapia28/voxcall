@@ -2,7 +2,7 @@ body{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: sans-serif;
+    font-family: sCambria, Cochin, Georgia, Times, 'Times New Roman', serif;;
     background-image: url(../img/fondo.jpg);
 }
 
@@ -13,6 +13,8 @@ h1{
 }
 
 .contenedor_cajas{
+    display: grid;
+    grid-template-columns: 100%;
     position: relative;
     margin-left: auto;
     margin-right: auto;
@@ -22,13 +24,22 @@ h1{
     top: 20vh;
     width: 25rem;
     height: rem;
-    font-size: 1.3vw;
+    font-size: 2vw;
     background-color: rgb(255, 245, 238,0.5);
 }
 
 .form_login{
-    display: grid;
     padding-left: 1vw;
+}
+
+.input_username>label {
+    display: block;
+    width: 100%;
+}
+
+.input_password>label {
+    display: block;
+    width: 100%;
 }
 
 .form_login input{
@@ -39,7 +50,7 @@ h1{
     margin-bottom: 1vh;
     border-radius: 5px;
     background-color: rgb(240, 185, 84);
-    font-size: 15px;
+    font-size: 1.5vw;
 }
 
 .form_login input:hover{

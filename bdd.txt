@@ -1,4 +1,4 @@
-Juan,Araya2,943678321
+Juan,Araya,943678321
 Carlos,Nuñez,921765469
 Carolina,Fernandez,943789231
 Francisca,Patiño,932789341

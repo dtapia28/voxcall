@@ -13,8 +13,6 @@ import os
 from config import DevelopmentConfig
 
 UPLOAD_FOLDER = os.path.abspath("../proyecto nuevo/")
-
-from models import db, User
 from flask import url_for
 from flask import redirect
 
@@ -50,22 +48,6 @@ def logout():
     if 'username' in session:
         session.pop('username')
     return redirect(url_for('index'))
-
-@app.route('/user/create', methods=['GET','POST'])
-def create_user():
-    create_form = forms.CreateUser(request.form)
-    if request.method == 'POST' and create_form.validate():
-        user = User(create_form.username.data,
-                    create_form.email.data,
-                    create_form.password.data)
-
-        db.session.add(user)
-        db.session.commit()            
-        success_message = "Usuario registrado correctamente"
-        flash(success_message)
-    else:    
-        return render_template('create_user.html', form = create_form)
-
 
 
 @app.route('/import', methods=['GET', 'POST'])
@@ -118,9 +100,7 @@ def contact():
 
 if __name__=='__main__':
     csrf.init_app(app)
-    db.init_app(app)
     mail.init_app(app)
 
     with app.app_context():
-        db.create_all()
-    app.run()
+        app.run()

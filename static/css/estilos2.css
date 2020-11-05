@@ -1,9 +1,9 @@
 body{
+    background-image: url(../img/fondo.jpg);
+    box-sizing: border-box;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    font-family: sans-serif;
-    background-image: url(../img/fondo.jpg);
 }
 
 h1{
@@ -13,15 +13,15 @@ h1{
 }
 
 .contenedor_cajas{
-    position: relative;
+    height: 15em;
     margin-left: auto;
     margin-right: auto;
     margin-top: auto;
     margin-bottom: auto;
     padding: 2vw;
-    top: 20vh;
-    width: 80rem;
-    height: rem;
+    position: relative;
+    top: 4em;
+    width: 80%;
     font-size: 1.3vw;
     background-color: rgb(255, 245, 238,0.5);
 }
@@ -33,6 +33,7 @@ h1{
 .form_login{
     display: grid;
     padding-left: 1vw;
+    font-size: 2em;
 }
 
 .form_login input{
@@ -100,8 +101,9 @@ label[for="archivo"]:hover{
 
 .contenedor-table {
     position: relative;
-    left: 25vw;
-    width: 75vw;
+    top: 3em;
+    margin: 0 auto;
+    width: 75%;
 }
 
 .btn-confirmar{
@@ -117,6 +119,11 @@ label[for="archivo"]:hover{
     background-color: rgb(240, 185, 84);
 }
 
+.contenedor-table form {
+    position: absolute;
+   padding: 0 10em;
+}
+
 th {
     left: 0px;
     text-align: left;
@@ -124,27 +131,29 @@ th {
 }
 
 .menu {
-    width: 70%;
-    margin-left: auto;
-    margin-right: auto;
+    width: 60%;
+    margin: 0 auto;
 }
 
 .menu ul{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    background-color: rgb(255, 245, 238,0.5);
+    padding: 0.5em 0;
     list-style: none;
-    margin: 0;
-    padding: 0;
     width: 100%;
     position: relative;
 }
 
-.li_1 {
-    background-color: rgb(255, 245, 238,0.5);
-    position: relative;
-    float: left;
-    padding-left: 1%;
-    width: 29%;
+li {
+    display: inline-block;
+    text-align: center;
+    padding: 0.2em 0;
+    width: 100%;
+    height: 100%;
 }
 
+/*
 .li_2 {
     background-color: rgb(255, 245, 238,0.5);
     position: relative;
@@ -162,11 +171,18 @@ th {
     text-align: right;
 }
 
+*/
+
 .menu ul li a{
-    display: block;
     text-decoration: none;
+    float: left;
     font-size: 2rem;
+    margin: 0 auto;
     color: black;
+}
+
+li:hover {
+    background-color: rgb(240, 185, 84);
 }
 
 @media screen and (min-width: 400px) and (max-width: 767px){
@@ -256,7 +272,6 @@ th {
         margin-left: auto;
         margin-right: auto;
         position: relative;
-        border: darkgoldenrod 1px solid;
     }
 
     .menu ul{
