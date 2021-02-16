@@ -116,12 +116,12 @@ label[for="archivo"]:hover{
 .contenedor-table input[type="text"]{
     width: 50%;
     left: 0px;
-    background-color: rgb(240, 185, 84);
+    background-color: white;
 }
 
 .contenedor-table form {
     position: absolute;
-   padding: 0 10em;
+    padding: 0 10em;
 }
 
 th {
@@ -241,15 +241,18 @@ li:hover {
     }
 
     .contenedor-table {
+
+        border: #ffbd69 2px solid;
         position: relative;
         left: 2.5vw;
         width: 95vw;
     }
     .contenedor-table input[type="text"]{
+
         width: 55%;
         left: 0px;
         font-size: 1rem;
-        background-color: rgb(240, 185, 84);
+        background-color: white;
     }
     
     th {

@@ -1,5 +1,6 @@
 {%extends 'base.html'%}
 {% block section_1 %}
+<link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
     <section class="section_log">
         <div class="contenedor_cajas">
             {% from "_macro.html" import render_field %}
@@ -14,8 +15,8 @@
                 <div class="input_submit">
                     <input type="submit" value="Ingresar">
                 </div>
-                
-            </form>    
+
+            </form>
         </div>
     </section>
 {% endblock %}

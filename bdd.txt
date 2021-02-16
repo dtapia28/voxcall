@@ -1,6 +1,2 @@
-Juan,Araya,943678321
-Carlos,Nuñez,921765469
-Carolina,Fernandez,943789231
-Francisca,Patiño,932789341
-Eduardo,Gonzalez,987967437
-Camilo,Astudillo,976547981
+Daniel Tapia,2020-11-12,Juan Jorquera,San Joaquin,56953551286
+Natalia Araya,2020-11-15,Gabriela Tapia,La Católica,56935627840

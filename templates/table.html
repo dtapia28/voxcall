@@ -2,28 +2,271 @@
 {% block section_1 %}
     <div class="contenedor-table">
         <h1>Confirmar datos importados</h1>
-        <form action="/validate" method="POST">
+
+        <form action="/calls/validate" method="POST">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             <input type="hidden" name="cantidad" value="{{cantidad}}">
-            <table>
+            {%if tipo == "1"%}
+            <input type="hidden" name="tipo" value="1">
+            {%endif%}
+            {%if tipo == "2"%}
+            <input type="hidden" name="tipo" value="2">
+            {%endif%}
+            {%if tipo == "3"%}
+            <input type="hidden" name="tipo" value="3">
+            {%endif%}
+            {%if tipo == "4"%}
+            <input type="hidden" name="tipo" value="4">
+            {%endif%}
+            {%if tipo == "5"%}
+            <input type="hidden" name="tipo" value="5">
+            {%endif%}
+            {%if tipo == "6"%}
+            <input type="hidden" name="tipo" value="6">
+            {%endif%}
+            {%if tipo == "7"%}
+            <input type="hidden" name="tipo" value="7">
+            {%endif%}
+            {%if tipo == "8"%}
+            <input type="hidden" name="tipo" value="8">
+            {%endif%}
+            {%if tipo == "9"%}
+            <input type="hidden" name="tipo" value="9">
+            {%endif%}
+            {%if tipo == "10"%}
+            <input type="hidden" name="tipo" value="10">
+            {%endif%}
+            {%if tipo == "0"%}
+            <input type="hidden" name="tipo" value="0">
+            {%endif%}
+            <table style="font-size: large;">
                 <thead>
                     <tr>
+                        {%if tipo == "1"%}
                         <th>Nombre</th>
-                        <th>Apellido</th>
+                        <th>Banco</th>
+                        <th>Monto</th>
+                        <th>Fecha</th>
                         <th>Teléfono</th>
+                        {%endif%}
+                        {%if tipo == "2"%}
+                        <th>Nombre</th>
+                        <th>Banco</th>
+                        <th>Opción</th>
+                        <th>Fecha</th>
+                        <th>Teléfono</th>
+                        {%endif%}
+                        {%if tipo == "3"%}
+                        <th>Nombre</th>
+                        <th>Banco</th>
+                        <th>Monto</th>
+                        <th>Teléfono</th>
+                        {%endif%}
+                        {%if tipo == "4"%}
+                        <th>Nombre</th>
+                        <th>Banco</th>
+                        <th>Teléfono</th>
+                        {%endif%}
+                        {%if tipo == "5"%}
+                        <th>Nombre</th>
+                        <th>Casa Comercial</th>
+                        <th>Monto</th>
+                        <th>Teléfono</th>
+                        {%endif%}
+                        {%if tipo == "6"%}
+                        <th>Nombre</th>
+                        <th>Casa Comercial</th>
+                        <th>Producto</th>
+                        <th>Fecha</th>
+                        <th>Teléfono</th>
+                        {%endif%}
+                        {%if tipo == "7"%}
+                        <th>Nombre</th>
+                        <th>Casa Comercial</th>
+                        <th>Monto</th>
+                        <th>Teléfono</th>
+                        {%endif%}
+                        {%if tipo == "8"%}
+                        <th>Nombre</th>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                        <th>Médico</th>
+                        <th>Especialidad</th>
+                        <th>Centro</th>
+                        <th>Dirección</th>
+                        <th>Teléfono</th>
+                        {%endif%}
+                        {%if tipo == "9"%}
+                        <th>Nombre</th>
+                        <th>Tipo</th>
+                        <th>Teléfono</th>
+                        {%endif%}
+                        {%if tipo == "0"%}
+                        {%if variables == "0"%}
+                        {%else%}
+                            {%if variables == "1"%}
+                                {%for num in range(1)%}
+                                <th>variable_{{num+1}}</th>
+                                {%endfor%}
+                            {%elif variables == "2"%}
+                                {%for num in range(2)%}
+                                <th>variable_{{num+1}}</th>
+                                {%endfor%}
+                            {%elif variables == "3"%}
+                                {%for num in range(3)%}
+                                <th>variable_{{num+1}}</th>
+                                {%endfor%}
+                            {%elif variables == "4"%}
+                                {%for num in range(4)%}
+                                <th>variable_{{num+1}}</th>
+                                {%endfor%}
+                            {%elif variables == "5"%}
+                                {%for num in range(5)%}
+                                <th>variable_{{num+1}}</th>
+                                {%endfor%}
+                            {%elif variables == "6"%}
+                                {%for num in range(6)%}
+                                <th>variable_{{num+1}}</th>
+                                {%endfor%}
+                            {%elif variables == "7"%}
+                                {%for num in range(7)%}
+                                <th>variable_{{num+1}}</th>
+                                {%endfor%}
+                            {%elif variables == "8"%}
+                                {%for num in range(8)%}
+                                <th>variable_{{num+1}}</th>
+                                {%endfor%}
+                            {%elif variables == "9"%}
+                                {%for num in range(9)%}
+                                <th>variable_{{num+1}}</th>
+                                {%endfor%}
+                            {%elif variables == "10"%}
+                                {%for num in range(10)%}
+                                <th>variable_{{num+1}}</th>
+                                {%endfor%}
+                            {%endif%}
+                            {%endif%}
+                        <th>Teléfono</th>
+                        {%endif%}
                     </tr>
                 </thead>
                 <tbody>
                     {% for canti in cantidad%}
                         <tr>
+                            {%if tipo == "1"%}
                             <td><input type="text" name="nombre{{canti}}" id="" value="{{datos[canti][0]}}"></td>
-                            <td><input type="text" name="apellido{{canti}}" id="" value="{{datos[canti][1]}}"></td>
+                            <td><input type="text" name="banco{{canti}}" id="" value="{{datos[canti][1]}}"></td>
+                            <td><input type="text" name="monto{{canti}}" id="" value="{{datos[canti][2]}}"></td>
+                            <td><input type="date" name="fecha{{canti}}" id="" value="{{datos[canti][3].strftime('%Y-%m-%d')}}"></td>
+                            <td><input type="text" name="phone{{canti}}" id="" value="{{datos[canti][4]}}"></td>
+                            {%endif%}
+                            {%if tipo == "2"%}
+                            <td><input type="text" name="nombre{{canti}}" id="" value="{{datos[canti][0]}}"></td>
+                            <td><input type="text" name="banco{{canti}}" id="" value="{{datos[canti][1]}}"></td>
+                            <td><input type="text" name="opcion{{canti}}" id="" value="{{datos[canti][2]}}"></td>
+                            <td><input type="date" name="fecha{{canti}}" id="" value="{{datos[canti][3].strftime('%Y-%m-%d')}}"></td>
+                            <td><input type="text" name="phone{{canti}}" id="" value="{{datos[canti][4]}}"></td>
+                            {%endif%}
+                            {%if tipo == "3"%}
+                            <td><input type="text" name="nombre{{canti}}" id="" value="{{datos[canti][0]}}"></td>
+                            <td><input type="text" name="banco{{canti}}" id="" value="{{datos[canti][1]}}"></td>
+                            <td><input type="text" name="monto{{canti}}" id="" value="{{datos[canti][2]}}"></td>
+                            <td><input type="text" name="phone{{canti}}" id="" value="{{datos[canti][3]}}"></td>
+                            {%endif%}
+                            {%if tipo == "4"%}
+                            <td><input type="text" name="nombre{{canti}}" id="" value="{{datos[canti][0]}}"></td>
+                            <td><input type="text" name="banco{{canti}}" id="" value="{{datos[canti][1]}}"></td>
                             <td><input type="text" name="phone{{canti}}" id="" value="{{datos[canti][2]}}"></td>
+                            {%endif%}
+                            {%if tipo == "5"%}
+                            <td><input type="text" name="nombre{{canti}}" id="" value="{{datos[canti][0]}}"></td>
+                            <td><input type="text" name="casa_comercial{{canti}}" id="" value="{{datos[canti][1]}}"></td>
+                            <td><input type="text" name="monto{{canti}}" id="" value="{{datos[canti][2]}}"></td>
+                            <td><input type="text" name="phone{{canti}}" id="" value="{{datos[canti][3]}}"></td>
+                            {%endif%}
+                            {%if tipo == "6"%}
+                            <td><input type="text" name="nombre{{canti}}" id="" value="{{datos[canti][0]}}"></td>
+                            <td><input type="text" name="casa_comercial{{canti}}" id="" value="{{datos[canti][1]}}"></td>
+                            <td><input type="text" name="producto{{canti}}" id="" value="{{datos[canti][2]}}"></td>
+                            <td><input type="date" name="fecha{{canti}}" id="" value="{{datos[canti][3].strftime('%Y-%m-%d')}}"></td>
+                            <td><input type="text" name="phone{{canti}}" id="" value="{{datos[canti][4]}}"></td>
+                            {%endif%}
+                            {%if tipo == "7"%}
+                            <td><input type="text" name="nombre{{canti}}" id="" value="{{datos[canti][0]}}"></td>
+                            <td><input type="text" name="casa_comercial{{canti}}" id="" value="{{datos[canti][1]}}"></td>
+                            <td><input type="text" name="monto{{canti}}" id="" value="{{datos[canti][2]}}"></td>
+                            <td><input type="text" name="phone{{canti}}" id="" value="{{datos[canti][3]}}"></td>
+                            {%endif%}
+                            {%if tipo == "8"%}
+                            <td><input type="text" name="nombre{{canti}}" id="" value="{{datos[canti][0]}}"></td>
+                            <td><input type="date" name="fecha{{canti}}" id="" value="{{datos[canti][1].strftime('%Y-%m-%d')}}"></td>
+                            <td><input type="time" name="hora{{canti}}" id="" value="{{datos[canti][2]}}"></td>
+                            <td><input type="text" name="medico{{canti}}" id="" value="{{datos[canti][3]}}"></td>
+                            <td><input type="text" name="especialidad{{canti}}" id="" value="{{datos[canti][4]}}"></td>
+                            <td><input type="text" name="centro{{canti}}" id="" value="{{datos[canti][5]}}"></td>
+                            <td><input type="text" name="direccion{{canti}}" id="" value="{{datos[canti][6]}}"></td>
+                            <td><input type="text" name="phone{{canti}}" id="" value="{{datos[canti][7]}}"></td>
+                            {%endif%}
+                            {%if tipo == "9"%}
+                            <td><input type="text" name="nombre{{canti}}" id="" value="{{datos[canti][0]}}"></td>
+                            <td><input type="text" name="tipo_2{{canti}}" id="" value="{{datos[canti][1]}}"></td>
+                            <td><input type="text" name="phone{{canti}}" id="" value="{{datos[canti][2]}}"></td>
+                            {%endif%}
+                            {%if tipo == "0"%}
+                                {%if variables == "0"%}
+                                <td><input type="text" name="phone{{canti}}" id="" value="{{datos[canti][0]}}"></td>
+                                <input type="hidden" name="variables" value={{variables}}>
+                                {%else%}
+                                <input type="hidden" name="variables" value={{variables}}>
+                                    {%if variables == "1"%}
+                                        {%for num in range(1)%}
+                                        <td><input type="text" name="variable_{{canti}}_{{num}}" id="" value="{{datos[canti][num]}}"></td>
+                                        {%endfor%}
+                                    {%elif variables == "2"%}
+                                        {%for num in range(2)%}
+                                        <td><input type="text" name="variable_{{canti}}_{{num}}" id="" value="{{datos[canti][num]}}"></td>
+                                        {%endfor%}
+                                    {%elif variables == "3"%}
+                                        {%for num in range(3)%}
+                                        <td><input type="text" name="variable_{{canti}}_{{num}}" id="" value="{{datos[canti][num]}}"></td>
+                                        {%endfor%}
+                                    {%elif variables == "4"%}
+                                        {%for num in range(4)%}
+                                        <td><input type="text" name="variable_{{canti}}_{{num}}" id="" value="{{datos[canti][num]}}"></td>
+                                        {%endfor%}
+                                    {%elif variables == "5"%}
+                                        {%for num in range(5)%}
+                                        <td><input type="text" name="variable_{{canti}}_{{num}}" id="" value="{{datos[canti][num]}}"></td>
+                                        {%endfor%}
+                                    {%elif variables == "6"%}
+                                        {%for num in range(6)%}
+                                        <td><input type="text" name="variable_{{canti}}_{{num}}" id="" value="{{datos[canti][num]}}"></td>
+                                        {%endfor%}
+                                    {%elif variables == "7"%}
+                                        {%for num in range(7)%}
+                                        <td><input type="text" name="variable_{{canti}}_{{num}}" id="" value="{{datos[canti][num]}}"></td>
+                                        {%endfor%}
+                                    {%elif variables == "8"%}
+                                        {%for num in range(8)%}
+                                        <td><input type="text" name="variable_{{canti}}_{{num}}" id="" value="{{datos[canti][num]}}"></td>
+                                        {%endfor%}
+                                    {%elif variables == "9"%}
+                                        {%for num in range(9)%}
+                                        <td><input type="text" name="variable_{{canti}}_{{num}}" id="" value="{{datos[canti][num]}}"></td>
+                                        {%endfor%}
+                                    {%elif variables == "10"%}
+                                        {%for num in range(10)%}
+                                        <td><input type="text" name="variable_{{canti}}_{{num}}" id="" value="{{datos[canti][num]}}"></td>
+                                        {%endfor%}
+                                    {%endif%}
+                                    <td><input type="text" name="phone{{canti}}" id="" value="{{datos[canti][-1]}}"></td>
+                                {%endif%}
+                            {%endif%}
                         </tr>
                     {%endfor%}
-                </tbody>        
+                </tbody>
             </table>
             <input type="submit" class="btn-confirmar" value="Confirmar datos">
-        </form>    
-    </div>    
+        </form>
+    </div>
 {% endblock %}

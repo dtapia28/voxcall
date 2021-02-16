@@ -1,0 +1,48 @@
+{%extends 'base2.html'%}
+{% block section_1 %}
+{%block style_especifico %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/menu.css')}}">
+
+{%endblock%}
+    <section class="section_log">
+        <div class="contenedor_cajas">
+            <form action="/calls/charge" method="post">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <h1 class="title_selector">Selector de tipo de mensaje</h1>
+                <div class="contenedor_call_or_sms">
+					<div>
+					  <input type="radio" id="call" name="type" value="call"
+					         checked>
+					  <label for="call">llamada</label>
+					</div>
+
+					<div>
+					  <input type="radio" id="sms" name="type" value="sms">
+					  <label for="sms">sms</label>
+					</div>                	
+                </div>
+                <div class="contenedor_tipos">
+                    <select name="tipos" id="tipos">
+                        <option value="0" selected disabled>Escoge una opción</option>
+                        <option value="1">Bancario</option>
+                        <option value="2">Casa Comercial</option>
+                        <option value="3">Hospitalario</option>
+                        <option value="4">Genérico</option>
+                    </select>
+                </div>
+                <div class="contenedor_tipo_2">
+                    <select name="tipo_2" id="tipo_2" style="display: none;"></select>
+                    
+                </div>
+                <div id="contiene_plantilla" class="contiene_plantilla">
+                    <a target="_blank" href="https://drive.google.com/file/d/1eihg_-dWvbXhWnhxW_us0JbXMvaUEQNE/view?usp=sharing">Descargar plantilla</a>
+                </div>
+                <div id="muestra_texto" style="display: none;" class="muestra_texto">
+                    
+                </div>
+                <input class="btn_sgte" type="submit" value="Siguiente">
+            </form>
+        </div>
+    </section>
+    <script src="{{url_for('static', filename='js/script.js')}}"></script>    
+{% endblock %}

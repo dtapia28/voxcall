@@ -2,7 +2,7 @@ body{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: sCambria, Cochin, Georgia, Times, 'Times New Roman', serif;;
+    font-family: sCambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     background-image: url(../img/fondo.jpg);
 }
 
@@ -140,7 +140,7 @@ th {
     }
 
     .contenedor_cajas{
-        width: 80%;
+        width: 50%;
         left: 5%;
         right: 5%;
         height: 25rem;
