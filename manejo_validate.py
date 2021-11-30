@@ -1,9 +1,11 @@
 from call_generico import Generico
-from flask import request
+from flask import request, session
 from call_bnc import Bnc_Credito, Bnc_Prdcto, Bnc_Cuota, Bnc_cambio
 from call_comercial import Comercial_aumento, Comercial_producto, Comercial_cuota
 from call_medico import Medico_hora, Medico_entrega
-from guardar_llamadas import Guardar_llamadas
+from models import Historico, Users
+from datetime import datetime
+from database import db_session
 import json
 
 class Manejo_validate():
@@ -237,8 +239,7 @@ class Manejo_validate():
            resultado = llama.llamada()
            resultado = json.loads(resultado)
            del llama
-           resul = Guardar_llamadas(resultado, telefono, 1)
-           resul.guardar()
+
 
     def llamada_bnc_producto(self):
         archivo = open("banco_producto_bdd.txt", "r")
@@ -257,8 +258,7 @@ class Manejo_validate():
            resultado = llama.llamada()
            resultado = json.loads(resultado)
            del llama
-           resul = Guardar_llamadas(resultado, telefono, 2)
-           resul.guardar()
+
 
 
     def llamada_bnc_cuota(self):
@@ -277,8 +277,7 @@ class Manejo_validate():
            resultado = llama.llamada()
            resultado = json.loads(resultado)
            del llama
-           resul = Guardar_llamadas(resultado, telefono, 3)
-           resul.guardar()
+
 
     def llamada_bnc_cambio_clave(self):
         archivo = open("banco_cambio_clave_bdd.txt", "r")
@@ -295,8 +294,7 @@ class Manejo_validate():
            resultado = llama.llamada()
            resultado = json.loads(resultado)
            del llama
-           resul = Guardar_llamadas(resultado, telefono, 4)
-           resul.guardar()
+
 
     def llamada_comercial_aumento(self):
         archivo = open("comercial_aumento_bdd.txt", "r")
@@ -314,8 +312,7 @@ class Manejo_validate():
            resultado = llama.llamada()
            resultado = json.loads(resultado)
            del llama
-           resul = Guardar_llamadas(resultado, telefono, 5)
-           resul.guardar()
+           resultado.guardar()
 
     def llamada_comercial_producto(self):
         archivo = open("comercial_producto_bdd.txt", "r")
@@ -334,8 +331,6 @@ class Manejo_validate():
            resultado = llama.llamada()
            resultado = json.loads(resultado)
            del llama
-           resul = Guardar_llamadas(resultado, telefono, 6)
-           resul.guardar()
 
     def llamada_comercial_cuota(self):
         archivo = open("comercial_cuota_bdd.txt", "r")
@@ -353,8 +348,7 @@ class Manejo_validate():
            resultado = llama.llamada()
            resultado = json.loads(resultado)
            del llama
-           resul = Guardar_llamadas(resultado, telefono, 7)
-           resul.guardar()
+
 
     def llamada_medico_hora(self):
         archivo = open("medico_hora_bdd.txt", "r")
@@ -376,8 +370,7 @@ class Manejo_validate():
             resultado = llama.llamada()
             resultado = json.loads(resultado)
             del llama
-            resul = Guardar_llamadas(resultado, telefono, 8)
-            resul.guardar()
+
 
     def llamada_medico_entrega(self):
         archivo = open("medico_entrega_bdd.txt", "r")
@@ -394,8 +387,7 @@ class Manejo_validate():
             resultado = llama.llamada()
             resultado = json.loads(resultado)
             del llama
-            resul = Guardar_llamadas(resultado, telefono, 9)
-            resul.guardar()
+
 
     def llamada_generico(self):
         print("Entra al metodo llamada_generico")
@@ -422,8 +414,22 @@ class Manejo_validate():
                 resultado = llama.llamada()
                 resultado = json.loads(resultado)
                 del llama
-                resul = Guardar_llamadas(resultado, telefono, 0)
-                resul.guardar()
+                tipo = "llamada"
+                if tipo == "llamada":
+                    monto = 0.09
+                elif tipo == "sms":
+                    monto = 0.22
+                else:
+                    monto = 0.0792    
+               
+                hoy = datetime.now();
+                if 'username' in session:
+                    user = session['username']
+                    user = Users.query.filter_by(username=user).first()
+                    resul = Historico(int(linea[0:11]), hoy, monto, tipo, user.id)
+                    db_session.add(resul)
+                    db_session.commit()               
+
         else:
             archivo = open("generico_bdd.txt", "r")
             lineas = archivo.readlines()
@@ -438,6 +444,19 @@ class Manejo_validate():
                 resultado = llama.llamada()
                 resultado = json.loads(resultado)
                 del llama
-                contador = contador+1
-                resul = Guardar_llamadas(resultado, linea[0:11], 0)
-                resul.guardar()
+                tipo = "llamada"
+                if tipo == "llamada":
+                    monto = 0.09
+                elif tipo == "sms":
+                    monto = 0.22
+                else:
+                    monto = 0.0792    
+               
+                hoy = datetime.now();
+                if 'username' in session:
+                    user = session['username']
+                    user = Users.query.filter_by(username=user).first()
+                    resul = Historico(int(linea[0:11]), hoy, monto, tipo, user.id)
+                    db_session.add(resul)
+                    db_session.commit() 
+                    contador = contador+1

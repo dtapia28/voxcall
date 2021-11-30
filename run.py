@@ -1,12 +1,14 @@
 from flask import Flask, render_template, request, flash, session, redirect
 from flask_wtf.csrf import CSRFProtect
-from historicos import Historico
+from flask_user import UserManager
 from database import init_db, db_session
-from models import Users, UsersForm, UserLoginForm, ImportExcel
+from models import Users, UsersForm, UserLoginForm, ImportExcel, Historico
 from contar_variables import Contar
 from manejo_archivos import Manejo_archivos
 from manejo_validate import Manejo_validate
 from sms_generico import Sms_generico
+from envia_whatsapp import Envio_whatsapp
+from datetime import datetime
 import pyexcel
 import os
 import datetime
@@ -22,7 +24,9 @@ csrf = CSRFProtect(app)
 
 SECRET_KEY = 'CLAVE_SECRETA_VOXCALL2021'
 
-init_db()
+db = init_db()
+
+user_manager = UserManager(app, Users)
 
 @app.errorhandler(404)
 def page_not_found(e):
@@ -33,8 +37,7 @@ def user_register():
     if 'username' in session:
         return redirect('/calls/menu')
 
-    form = UsersForm()
-    return render_template('create.html', form = form)
+    return render_template('create.html')
 
 @app.route('/users/save', methods=['POST'])
 def user_save():
@@ -75,8 +78,8 @@ def user_login():
 
    form = UserLoginForm(request.form)
    if request.method == "POST":
-      user = Users.query.filter(Users.username == form.username.data).first()
-      if user and user.check_password(form.password.data):
+      user = Users.query.filter(Users.username == request.form['username']).first()
+      if user and user.check_password(request.form['password']):
          session['username'] = user.username
          success_message = "Bienvenido "+user.username
          flash(success_message)
@@ -85,9 +88,9 @@ def user_login():
       else:
          success_message = "Usuario y/o contraseña incorrectos"
          flash(success_message)
-         return render_template('login.html', form = form)
+         return render_template('login.html')
    else:
-       return render_template('login.html', form = form)
+       return render_template('login.html')
 
 
 @app.route('/users/logout')
@@ -104,6 +107,7 @@ def cargar():
             archivo_lista = open("tipo.txt", "w")
             archivo_lista.write(tipo2)
             archivo_lista.close()
+
             tipo = request.form['tipo_2']
             try:
                 int(tipo)
@@ -121,7 +125,7 @@ def cargar():
 @app.route('/calls/menu')
 def calls_menu():
     if 'username' in session:
-        return render_template('menu.html')
+        return render_template('index.html')
     else:
         return redirect('/users/login')
 
@@ -129,17 +133,17 @@ def calls_menu():
 @app.route('/calls/import/gene/<var>', methods=['GET', 'POST'])
 def importar_gene(var):
     if 'username' in session:
-        form = ImportExcel(request.form)
         if request.method=='POST':
             archivo = Manejo_archivos(request.files["archivo"])
             archivo.guardar()
             success_message = 'Tu archivo se ha guardado exitosamente'
             flash(success_message)
             cantidad = archivo.contar_lineas()
+            cantidad_ultima = cantidad[-1]
             leidos = pyexcel.get_sheet(file_name=archivo.archivo.filename, name_columns_by_row=0)
-            return render_template("table.html", datos = leidos, cantidad = cantidad, tipo = "0", variables = var)
+            return render_template("table2.html", datos = leidos, cantidad = cantidad, tipo = "0", variables = var, ultima = cantidad_ultima)
         else:
-            return render_template('importar.html', form = form)
+            return render_template('importar.html')
     else:
         return redirect('/users/login')
 
@@ -147,7 +151,6 @@ def importar_gene(var):
 @app.route('/calls/import/<tipo>', methods=['GET', 'POST'])
 def importar(tipo):
     if 'username' in session:
-        form = ImportExcel(request.form)
         if request.method == 'POST':
             archivo = Manejo_archivos(request.files["archivo"])
             archivo.guardar()
@@ -155,10 +158,10 @@ def importar(tipo):
             flash(success_message)
             cantidad = archivo.contar_lineas()
             leidos = pyexcel.get_sheet(file_name=archivo.archivo.filename, name_columns_by_row=0)
-
-            return render_template('table.html', datos = leidos, cantidad=cantidad, tipo =tipo)
+            cantidad_ultima = cantidad[-1]
+            return render_template('table2.html', datos = leidos, cantidad=cantidad, tipo =tipo, ultima = cantidad_ultima)
         else:
-            return render_template('importar.html', form = form)
+            return render_template('importar.html')
     else:
         return redirect('/users/login')
 
@@ -171,10 +174,14 @@ def calls_validate():
             texto = open('tipo.txt', 'r')
             texto_leido = texto.read()
             texto.close()
+
+            ## Modo llamada
             if texto_leido == 'call':
                 elemento = Manejo_validate(tipo)
                 elemento.calcular_cantidades(cantidad)
                 elemento.filtro()
+
+            ## Modo SMS
             elif texto_leido == "sms" and tipo == "0":
                 cantidades = []
                 for canti in cantidad:
@@ -185,12 +192,144 @@ def calls_validate():
                 archivo = open("generico_bdd.txt", "w")
                 for cantidad in cantidades:
                     telefono = request.form["phone"+str(cantidad)]
-                    archivo.write(telefono+",\n")
+                    archivo.write(telefono+", \n")
 
                 variables = int(request.form["variables"])
-                archivo.close()  
+                archivo.close()
 
                 if variables != None:
+
+                    if variables>0:
+                        print("SMS con variable mayor a 0")
+                        texto = open('texto_generico.txt', 'r')
+                        texto_leido = texto.read()
+                        texto_posiciones = texto_leido.split()
+                        texto.close()
+
+                        posiciones = open('posicion_variables.txt', 'r')
+                        posiciones_lst = posiciones.read()
+                        lista_posiciones = posiciones_lst.split(',')
+                        del lista_posiciones[-1]
+
+                        archivo = open("texto_generico.txt", "w")
+                        for cantidad in cantidades:
+                            contador = 0
+
+                            for pos in lista_posiciones:
+                                texto_posiciones[int(pos)] = request.form["variable_"+str(cantidad)+"_"+str(contador)]
+                                contador = contador+1
+                                str1=""
+                            for elemento in texto_posiciones:
+                                str1+=elemento+" "
+                            archivo.write(str1+",\n")
+                        archivo.close()
+
+                        texto = open('texto_generico.txt', 'r')
+                        texto_leido = texto.read()
+                        texto_posiciones = texto_leido.split(',')
+                        texto.close()
+
+                        archivo = open("generico_bdd.txt")
+                        lineas = archivo.readlines()
+                        archivo.close()
+                        for num in range(len(lineas)):
+                            print(num)
+                            elemento = Sms_generico(lineas[num], texto_posiciones[num])
+                            respuesta = elemento.envio()
+                            tipo = "sms"
+                            if tipo == "llamada":
+                                monto = 0.09
+                            elif tipo == "sms":
+                                monto = 0.22
+                            else:
+                                monto = 0.0792    
+                        
+                            hoy = datetime.now();
+                            if 'username' in session:
+                                user = session['username']
+                                user = Users.query.filter_by(username=user).first()
+                                resul = Historico(lineas[num], hoy, monto, tipo, user.id)
+                                db_session.add(resul)
+                                db_session.commit()
+
+
+                    else:
+                        print("SMS con variable 0")
+                        texto = open('texto_generico.txt', 'r')
+                        texto_leido = texto.read()
+                        texto.close()
+
+                        archivo = open("generico_bdd.txt")
+                        lineas = archivo.readlines()
+                        archivo.close()
+                        for num in range(len(lineas)):
+                            print(num)
+                            elemento = Sms_generico(lineas[num], texto_leido)
+                            respuesta = elemento.envio()
+                            tipo = "sms"
+                            if tipo == "llamada":
+                                monto = 0.09
+                            elif tipo == "sms":
+                                monto = 0.22
+                            else:
+                                monto = 0.0792    
+                        
+                            hoy = datetime.datetime.now();
+                            if 'username' in session:
+                                user = session['username']
+                                user = Users.query.filter_by(username=user).first()
+                                resul = Historico(lineas[num], hoy, monto, tipo, user.id)
+                                db_session.add(resul)
+                                db_session.commit()                            
+
+                else:
+                    print("SMS sin variable")
+                    texto = open('texto_generico.txt', 'r')
+                    texto_leido = texto.read()
+                    texto.close()
+
+                    archivo = open("generico_bdd.txt")
+                    lineas = archivo.readlines()
+                    archivo.close()
+                    for linea in lineas:
+                        elemento = Sms_generico(linea, texto_leido)
+                        respuesta = elemento.envio()
+                        tipo = "sms"
+                        if tipo == "llamada":
+                            monto = 0.09
+                        elif tipo == "sms":
+                            monto = 0.22
+                        else:
+                            monto = 0.0792    
+                        
+                        hoy = datetime.now();
+                        if 'username' in session:
+                            user = session['username']
+                            user = Users.query.filter_by(username=user).first()
+                            resul = Historico(linea, hoy, monto, tipo, user.id)
+                            db_session.add(resul)
+                            db_session.commit()          
+            
+            
+            elif texto_leido == "whatsapp" and tipo == "0":
+                elemento = Envio_whatsapp()
+                con = elemento.conexion()
+                cantidades = []
+                for canti in cantidad:
+                    if canti != "[" and canti != "]" and canti != "," and canti != " ":
+                        canti = int(canti)
+                        cantidades.append(canti)
+
+                archivo = open("generico_bdd.txt", "w")
+                for cantidad in cantidades:
+                    telefono = request.form["phone"+str(cantidad)]
+                    archivo.write(telefono+", \n")
+
+                variables = int(request.form["variables"])
+                archivo.close()
+
+                print("Las variables son: "+str(variables))
+                if variables != 0:
 
                     if variables>0:
                         texto = open('texto_generico.txt', 'r')
@@ -218,26 +357,28 @@ def calls_validate():
 
                         texto = open('texto_generico.txt', 'r')
                         texto_leido = texto.read()
+                        texto_posiciones = texto_leido.split(',')
                         texto.close()
 
-                    else:
-                        texto = open('texto_generico.txt', 'r')
-                        texto_leido = texto.read()
-                        texto_posiciones = texto_leido.split()
-                        texto.close()
-                          
+                        archivo = open("generico_bdd.txt")
+                        lineas = archivo.readlines()
+                        archivo.close()
+                        for num in range(len(lineas)):
+                            print(num)
+
                 else:
                     texto = open('texto_generico.txt', 'r')
                     texto_leido = texto.read()
-                    texto_posiciones = texto_leido.split()
                     texto.close()
-                
-                archivo = open("generico_bdd.txt")
-                lineas = archivo.readlines()
-                archivo.close()
-                for linea in lineas:
-                    elemento = Sms_generico(linea, texto_leido)
-                    respuesta = elemento.envio()
+
+                    archivo = open("generico_bdd.txt")
+                    lineas = archivo.readlines()
+                    archivo.close()
+                    
+                    for linea in lineas:
+                        elemento.envio(con)                    
+                    
+
             return redirect('/calls/menu')
 
     else:

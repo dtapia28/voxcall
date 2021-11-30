@@ -1,18 +1,125 @@
-{% extends 'base.html' %}
-{% block subtitle %} Ingreso {% endblock  %}
-{% block content %}
-<link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
-<div class="contenedor_cajas">
-    {% from "_macro.html" import render_field %}
-    <form action="/users/login" method="POST" class="form_login">
-        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-        {{form.username.label}}{{form.username}}
-        <br>
-        {{form.password.label}}{{form.password}}
-        <br>
-        <input class="form_user-submit" type="submit" value="Ingresar">
-    </form>
-    <a href="/users/register">Crear usuario</a>
-</div>
+<!DOCTYPE html>
+<html lang="es">
 
-{% endblock  %}
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>
+    Voxcall - Login
+  </title>
+  <!-- Favicon -->
+  <link href="{{url_for('static', filename='assets/img/brand/favicon.png')}}" rel="icon" type="image/png">
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+  <!-- Icons -->
+  <link href="{{url_for('static', filename='assets/js/plugins/nucleo/css/nucleo.css')}}" rel="stylesheet" />
+  
+  <link href="{{url_for('static', filename='assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css')}}" rel="stylesheet" />
+  
+  <!-- CSS -->
+  <link href="{{url_for('static', filename='assets/css/voxcall-dashboard.css')}}" rel="stylesheet" />
+</head>
+
+<body class="bg-default">
+  <div class="main-content">
+    <!-- Navbar -->
+    <nav class="navbar navbar-top navbar-horizontal navbar-expand-md navbar-dark">
+      <div class="container px-4">
+        <a class="navbar-brand" href="/">
+          <h1 class="text-white"><i class="fa fa-phone-square"></i> VOXCALL</h1>
+        </a>
+      </div>
+    </nav>
+    <!-- Header -->
+    <div class="header bg-gradient-primary py-7 py-lg-8">
+      <div class="container">
+        <div class="header-body text-center mb-5">
+          <div class="row justify-content-center">
+            <div class="col-lg-5 col-md-6">
+              <h1 class="text-white">Bienvenido!</h1>
+              <p class="text-lead text-light">Para inciar sesión, tienes las siguientes opciones...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="separator separator-bottom separator-skew zindex-100">
+        <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
+          <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
+        </svg>
+      </div>
+    </div>
+    <!-- Page content -->
+    <div class="container mt--8 pb-5">
+      <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-7">
+          <div class="card bg-secondary shadow border-0">
+            <div class="card-header bg-transparent pb-5">
+              <div class="text-muted text-center mt-2 mb-3"><small>Ingresa con tu cuenta de</small></div>
+              <div class="btn-wrapper text-center">
+                <a href="#" class="btn btn-neutral btn-icon">
+                  <span class="btn-inner--icon"><img src="{{url_for('static', filename='assets/img/icons/common/github.svg')}}"></span>
+                  <span class="btn-inner--text">Github</span>
+                </a>
+                <a href="#" class="btn btn-neutral btn-icon">
+                  <span class="btn-inner--icon"><img src="{{url_for('static', filename='assets/img/icons/common/google.svg')}}"></span>
+                  <span class="btn-inner--text">Google</span>
+                </a>
+              </div>
+            </div>
+            <div class="card-body px-lg-5 py-lg-5">
+              <div class="text-center text-muted mb-4">
+                <small>Ingresa con tus credenciales</small>
+              </div>
+              <form role="form" action="/users/login" method="POST">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <div class="form-group mb-3">
+                  <div class="input-group input-group-alternative">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-single-02"></i></span>
+                    </div>
+                    <input class="form-control" placeholder="Usuario" type="text" name="username">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group input-group-alternative">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                    </div>
+                    <input class="form-control" placeholder="Contraseña" type="password" name="password">
+                  </div>
+                </div>
+                <div class="custom-control custom-control-alternative custom-checkbox">
+                  <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
+                  <label class="custom-control-label" for=" customCheckLogin">
+                    <span class="text-muted">Recordarme</span>
+                  </label>
+                </div>
+                <div class="text-center">
+                  <input type="submit" class="btn btn-primary my-4" value="Ingresar"></input>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-6">
+              <a href="#" class="text-light"><small>¿Olvidó su contraseña?</small></a>
+            </div>
+            <div class="col-6 text-right">
+              <a href="/users/register" class="text-light"><small>Crear nueva cuenta</small></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--   Core   -->
+  <script src="{{url_for('static', filename='assets/js/plugins/jquery/dist/jquery.min.js')}}"></script>
+  
+  <script src="{{url_for('static', filename='assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
+  
+  <!--   JS   -->
+  <script src="{{url_for('static', filename='assets/js/voxcall-dashboard.min.js')}}"></script>
+  
+</body>
+</html>

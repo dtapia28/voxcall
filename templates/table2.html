@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>
+    Voxcall - Datos Importados
+  </title>
+  <!-- Favicon -->
+  <link href="{{url_for('static', filename='assets/img/brand/favicon.png')}}" rel="icon" type="image/png">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+  <!-- Icons -->
+  <link href="{{url_for('static', filename='assets/js/plugins/nucleo/css/nucleo.css')}}" rel="stylesheet"/>
+  <link href="{{url_for('static', filename='assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css')}}" rel="stylesheet" />
+  <!-- CSS -->
+  <link href="{{url_for('static', filename='assets/css/voxcall-dashboard.css')}}" rel="stylesheet" />
+  <link href="{{url_for('static', filename='assets/css/jquery.dataTables.min.css')}}" rel="stylesheet" />
+  <!-- <link href="./assets/js/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet" /> -->
+</head>
+
+<body class="">
+  <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
+    <div class="container-fluid">
+      <!-- Toggler -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidenav-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <!-- Brand -->
+      <a class="navbar-brand pt-0" href="/">
+        <h1 class="ct-text-purple"><i class="fa fa-phone-square"></i> VOXCALL</h1>
+      </a>
+      <!-- User -->
+      <ul class="nav align-items-center d-md-none">
+        <li class="nav-item dropdown">
+          <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div class="media align-items-center">
+              <span class="avatar avatar-sm rounded-circle">
+                <img alt="Image placeholder" src="{{url_for('static', filename='assets/img/theme/avatar.png')}}">
+              </span>
+            </div>
+          </a>
+          <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
+            <div class=" dropdown-header noti-title">
+              <h6 class="text-overflow m-0">Bienvenido!</h6>
+            </div>
+            <a href="#!" class="dropdown-item">
+              <i class="ni ni-single-02"></i>
+              <span>Mi Cuenta</span>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="/users/logout" class="dropdown-item">
+              <i class="ni ni-button-power text-danger"></i>
+              <span>Cerrar Sesión</span>
+            </a>
+          </div>
+        </li>
+      </ul>
+      <!-- Collapse -->
+      <div class="collapse navbar-collapse" id="sidenav-collapse-main">
+        <!-- Collapse header -->
+        <div class="navbar-collapse-header d-md-none">
+          <div class="row">
+            <div class="col-6 collapse-brand">
+              <a href="./index.html">
+                <h1 class="ct-text-purple"><i class="fa fa-phone-square"></i> VOXCALL</h1>
+              </a>
+            </div>
+            <div class="col-6 collapse-close">
+              <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#sidenav-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle sidenav">
+                <span></span>
+                <span></span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Navigation -->
+        <ul class="navbar-nav">
+          <li class="nav-item ">
+            <a class="nav-link  active " href="/">
+              <i class="ni ni-tv-2 text-primary"></i> Inicio
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link active" href="./datos.html">
+              <i class="ni ni-archive-2 text-primary"></i> Datos Importados
+            </a>
+          </li>
+        </ul>
+        <!-- Divider -->
+        <hr class="my-3">
+        <!-- Navigation -->
+        <ul class="navbar-nav mb-md-3">
+          <li class="nav-item">
+            <a class="nav-link" href="/users/logout">
+              <i class="ni ni-button-power text-danger"></i> Cerrar Sesión
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="main-content">
+    <!-- Navbar -->
+    <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
+      <div class="container-fluid">
+        <!-- Brand -->
+        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="./historico.html">Datos Importados</a>
+        <!-- User -->
+        <ul class="navbar-nav align-items-center d-none d-md-flex">
+          <li class="nav-item dropdown">
+            <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <div class="media align-items-center">
+                <span class="avatar avatar-sm rounded-circle">
+                  <img alt="Image placeholder" src="{{url_for('static', filename='assets/img/theme/avatar.png')}}">
+                </span>
+                <div class="media-body ml-2 d-none d-lg-block">
+                  <span class="mb-0 text-sm font-weight-bold">Daniel Tapia</span>
+                </div>
+              </div>
+            </a>
+            <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
+              <div class=" dropdown-header noti-title">
+                <h6 class="text-overflow m-0">Bienvenido!</h6>
+              </div>
+              <a href="#!" class="dropdown-item">
+                <i class="ni ni-single-02"></i>
+                <span>Mi Cuenta</span>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="/users/logout" class="dropdown-item">
+                <i class="ni ni-button-power text-danger"></i>
+                <span>Cerrar Sesión</span>
+              </a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <!-- End Navbar -->
+    <!-- Header -->
+    <div class="header bg-gradient-primary pb-7 pt-5 pt-md-7">
+      <div class="container-fluid">
+      </div>
+    </div>
+    <div class="container-fluid mt--7">
+      <div class="row">
+        <d class="col-xl-12 mb-5 mb-xl-0">
+          <div class="card shadow">
+            <div class="card-header">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h6 class="text-uppercase text-light ls-1 mb-1">Datos</h6>
+                  <h2 class="mb-0">Confirmar datos importados</h2>
+                </div>
+              </div>
+            </div>
+            <input type="hidden" name="tipo2" id="tipo2" value="{{tipo}}">
+            <div class="card-body">
+              <!-- Register -->
+              <div class="mb-3">
+                <div class="row mb-3">
+                {%if tipo == "1"%}
+                  <div class="col"><input type="text" name="nombre" id="nombre" class="form-control" placeholder="Nombre" autocomplete="off" pattern="[A-Za-z0-9]+"></div>
+                  <div class="col"><input type="text" name="banco" id="banco" class="form-control" placeholder="Banco" autocomplete="off" pattern="[A-Za-z0-9]+"></div>
+                  <div class="col"><input type="number" name="monto" id="monto" class="form-control" placeholder="Monto" min="0" autocomplete="off"></div>
+                  <div class="col"><input type="date" name="fecha" id="fecha" class="form-control" placeholder="Fecha" autocomplete="off"></div>
+                  <div class="col"><input type="tel" name="telefono" id="telefono" class="form-control" placeholder="Teléfono (Ej. 56911223344)" autocomplete="off" pattern="[0-9]{9}" maxlength="11"></div>
+                {%endif%}
+                {%if tipo == "2"%}
+                <div class="col"><input type="text" name="nombre" id="nombre" class="form-control" placeholder="Nombre" autocomplete="off" pattern="[A-Za-z0-9]+"></div>
+                <div class="col"><input type="text" name="banco" id="banco" class="form-control" placeholder="Banco" autocomplete="off" pattern="[A-Za-z0-9]+"></div>
+                <div class="col"><input type="text" name="opcion" id="monto" class="form-control" placeholder="Opción" min="0" autocomplete="off"></div>
+                <div class="col"><input type="date" name="fecha" id="fecha" class="form-control" placeholder="Fecha" autocomplete="off"></div>
+                <div class="col"><input type="tel" name="telefono" id="telefono" class="form-control" placeholder="Teléfono (Ej. 56911223344)" autocomplete="off" pattern="[0-9]{9}" maxlength="11"></div>                
+                {%endif%}
+                {%if tipo == "3"%}
+                <div class="col"><input type="text" name="nombre" id="nombre" class="form-control" placeholder="Nombre" autocomplete="off" pattern="[A-Za-z0-9]+"></div>
+                <div class="col"><input type="text" name="banco" id="banco" class="form-control" placeholder="Banco" autocomplete="off" pattern="[A-Za-z0-9]+"></div>
+                <div class="col"><input type="text" name="monto" id="monto" class="form-control" placeholder="Monto" min="0" autocomplete="off"></div>
+                <div class="col"><input type="tel" name="telefono" id="telefono" class="form-control" placeholder="Teléfono (Ej. 56911223344)" autocomplete="off" pattern="[0-9]{9}" maxlength="11"></div>                
+                {%endif%}
+                {%if tipo == "4"%}
+                <div class="col"><input type="text" name="nombre" id="nombre" class="form-control" placeholder="Nombre" autocomplete="off" pattern="[A-Za-z0-9]+"></div>
+                <div class="col"><input type="text" name="banco" id="banco" class="form-control" placeholder="Banco" autocomplete="off" pattern="[A-Za-z0-9]+"></div>
+                <div class="col"><input type="tel" name="telefono" id="telefono" class="form-control" placeholder="Teléfono (Ej. 56911223344)" autocomplete="off" pattern="[0-9]{9}" maxlength="11"></div>                
+                {%endif%}
+                {%if tipo == "5"%}
+                <div class="col"><input type="text" name="nombre" id="nombre" class="form-control" placeholder="Nombre" autocomplete="off" pattern="[A-Za-z0-9]+"></div>
+                <div class="col"><input type="text" name="casa_comercial" id="casa_comercial" class="form-control" placeholder="Casa Comercial" autocomplete="off" pattern="[A-Za-z0-9]+"></div>
+                <div class="col"><input type="number" name="monto" id="monto" class="form-control" placeholder="Monto" min="0" autocomplete="off"></div>
+                <div class="col"><input type="tel" name="telefono" id="telefono" class="form-control" placeholder="Teléfono (Ej. 56911223344)" autocomplete="off" pattern="[0-9]{9}" maxlength="11"></div>                
+                {%endif%}
+                {%if tipo == "6"%}
+                <div class="col"><input type="text" name="nombre" id="nombre" class="form-control" placeholder="Nombre" autocomplete="off" pattern="[A-Za-z0-9]+"></div>
+                <div class="col"><input type="text" name="casa_comercial" id="casa_comercial" class="form-control" placeholder="Casa Comercial" autocomplete="off" pattern="[A-Za-z0-9]+"></div>
+                <div class="col"><input type="text" name="producto" id="producto" class="form-control" placeholder="Producto" autocomplete="off" pattern="[A-Za-z0-9]+"></div>
+                <div class="col"><input type="date" name="fecha" id="fecha" class="form-control" placeholder="Fecha" autocomplete="off"></div>
+                <div class="col"><input type="tel" name="telefono" id="telefono" class="form-control" placeholder="Teléfono (Ej. 56911223344)" autocomplete="off" pattern="[0-9]{9}" maxlength="11"></div>                
+                {%endif%}
+                {%if tipo == "7"%}
+                <div class="col"><input type="text" name="nombre" id="nombre" class="form-control" placeholder="Nombre" autocomplete="off" pattern="[A-Za-z0-9]+"></div>
+                <div class="col"><input type="text" name="casa_comercial" id="casa_comercial" class="form-control" placeholder="Casa Comercial" autocomplete="off" pattern="[A-Za-z0-9]+"></div>
+                <div class="col"><input type="number" name="monto" id="monto" class="form-control" placeholder="Monto" min="0" autocomplete="off"></div>
+                <div class="col"><input type="tel" name="telefono" id="telefono" class="form-control" placeholder="Teléfono (Ej. 56911223344)" autocomplete="off" pattern="[0-9]{9}" maxlength="11"></div>
+                {%endif%}
+                {%if tipo == "8"%}
+                <div class="col"><input type="text" name="nombre" id="nombre" class="form-control" placeholder="Nombre" autocomplete="off" pattern="[A-Za-z0-9]+"></div>
+                <div class="col"><input type="date" name="fecha" id="fecha" class="form-control" placeholder="Fecha" autocomplete="off"></div>
+                <div class="col"><input type="time" name="hora" id="hora" class="form-control" placeholder="Hora" autocomplete="off"></div>
+                <div class="col"><input type="text" name="medico" id="medico" class="form-control" placeholder="Médico" autocomplete="off" pattern="[A-Za-z0-9]+"></div>
+                <div class="col"><input type="text" name="especialidad" id="especialidad" class="form-control" placeholder="Especialidad" autocomplete="off" pattern="[A-Za-z0-9]+"></div>
+                <div class="col"><input type="text" name="centro" id="centro" class="form-control" placeholder="Centro" autocomplete="off" pattern="[A-Za-z0-9]+"></div>
+                <div class="col"><input type="text" name="direccion" id="direccion" class="form-control" placeholder="Dirección" autocomplete="off" pattern="[A-Za-z0-9]+"></div>
+                <div class="col"><input type="tel" name="telefono" id="telefono" class="form-control" placeholder="Teléfono (Ej. 56911223344)" autocomplete="off" pattern="[0-9]{9}" maxlength="11"></div>
+                {%endif%}
+                {%if tipo == "9"%}
+                <div class="col"><input type="text" name="nombre" id="nombre" class="form-control" placeholder="Nombre" autocomplete="off" pattern="[A-Za-z0-9]+"></div>
+                <div class="col"><input type="text" name="tipo" id="tipo" class="form-control" placeholder="Tipo" autocomplete="off" pattern="[A-Za-z0-9]+"></div>
+                <div class="col"><input type="tel" name="telefono" id="telefono" class="form-control" placeholder="Teléfono (Ej. 56911223344)" autocomplete="off" pattern="[0-9]{9}" maxlength="11"></div>
+                {%endif%}
+                {%if tipo == "0"%}
+                <input type="hidden" name="variables" id="variables" value="{{variables}}">
+                {%if variables == "0"%}
+                {%else%}
+                {%if variables == "1"%}
+                {%for num in range(1)%}
+                <div class="col"><input type="text" name="variable_{{num}}" id="variable_{{num}}" class="form-control" placeholder="Variable" autocomplete="off" pattern="[A-Za-z0-9]+"></div>
+                {%endfor%}
+                {%elif variables == "2"%}
+                {%for num in range(2)%}
+                <div class="col"><input type="text" name="variable_{{num}}" id="variable_{{num}}" class="form-control" placeholder="Variable" autocomplete="off" pattern="[A-Za-z0-9]+"></div>
+                {%endfor%}                
+                {%elif variables == "3"%}
+                {%for num in range(3)%}
+                <div class="col"><input type="text" name="variable_{{num}}" id="variable_{{num}}" class="form-control" placeholder="Variable" autocomplete="off" pattern="[A-Za-z0-9]+"></div>
+                {%endfor%}                
+                {%elif variables == "4"%}
+                {%for num in range(4)%}
+                <div class="col"><input type="text" name="variable_{{num}}" id="variable_{{num}}" class="form-control" placeholder="Variable" autocomplete="off" pattern="[A-Za-z0-9]+"></div>
+                {%endfor%}                
+                {%elif variables == "5"%}
+                {%for num in range(5)%}
+                <div class="col"><input type="text" name="variable_{{num}}" id="variable_{{num}}" class="form-control" placeholder="Variable" autocomplete="off" pattern="[A-Za-z0-9]+"></div>
+                {%endfor%}                
+                {%elif variables == "6"%}
+                {%for num in range(6)%}
+                <div class="col"><input type="text" name="variable_{{num}}" id="variable_{{num}}" class="form-control" placeholder="Variable" autocomplete="off" pattern="[A-Za-z0-9]+"></div>
+                {%endfor%}                
+                {%elif variables == "7"%}
+                {%for num in range(7)%}
+                <div class="col"><input type="text" name="variable_{{num}}" id="variable_{{num}}" class="form-control" placeholder="Variable" autocomplete="off" pattern="[A-Za-z0-9]+"></div>
+                {%endfor%}                
+                {%elif variables == "8"%}
+                {%for num in range(8)%}
+                <div class="col"><input type="text" name="variable_{{num}}" id="variable_{{num}}" class="form-control" placeholder="Variable" autocomplete="off" pattern="[A-Za-z0-9]+"></div>
+                {%endfor%}                
+                {%elif variables == "9"%}
+                {%for num in range(9)%}
+                <div class="col"><input type="text" name="variable_{{num}}" id="variable_{{num}}" class="form-control" placeholder="Variable" autocomplete="off" pattern="[A-Za-z0-9]+"></div>
+                {%endfor%}                
+                {%elif variables == "10"%}
+                {%for num in range(10)%}
+                <div class="col"><input type="text" name="variable_{{num}}" id="variable_{{num}}" class="form-control" placeholder="Variable" autocomplete="off" pattern="[A-Za-z0-9]+"></div>
+                {%endfor%}
+                {%endif%}
+                {%endif%}
+                <div class="col"><input type="tel" name="telefono" id="telefono" class="form-control" placeholder="Teléfono (Ej. 56911223344)" autocomplete="off" pattern="[0-9]{9}" maxlength="11"></div>
+                {%endif%}
+                  <div class="col text-center"><button class="btn btn-primary" onclick="AgregarRegistro()"><i class="fa fa-plus-circle"></i> Agregar</button></div>
+                  <input type="hidden" value="{{ultima}}" id="ultima" name="ultima">                  
+                </div>
+                <div class="table-responsive">
+                  <!-- Historic table -->
+                  <form action="/calls/validate" method="POST">
+                  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                  <input type="hidden" name="cantidad" value="{{cantidad}}">
+                  {%if tipo == "1"%}
+                  <input type="hidden" name="tipo" value="1">
+                  {%endif%}
+                  {%if tipo == "2"%}
+                  <input type="hidden" name="tipo" value="2">
+                  {%endif%}
+                  {%if tipo == "3"%}
+                  <input type="hidden" name="tipo" value="3">
+                  {%endif%}
+                  {%if tipo == "4"%}
+                  <input type="hidden" name="tipo" value="4">
+                  {%endif%}
+                  {%if tipo == "5"%}
+                  <input type="hidden" name="tipo" value="5">
+                  {%endif%}
+                  {%if tipo == "6"%}
+                  <input type="hidden" name="tipo" value="6">
+                  {%endif%}
+                  {%if tipo == "7"%}
+                  <input type="hidden" name="tipo" value="7">
+                  {%endif%}
+                  {%if tipo == "8"%}
+                  <input type="hidden" name="tipo" value="8">
+                  {%endif%}
+                  {%if tipo == "9"%}
+                  <input type="hidden" name="tipo" value="9">
+                  {%endif%}
+                  {%if tipo == "10"%}
+                  <input type="hidden" name="tipo" value="10">
+                  {%endif%}
+                  {%if tipo == "0"%}
+                  <input type="hidden" name="tipo" value="0">
+                  {%endif%}                                    
+                  <table class="table align-items-center table-flush table-sm" id="tablaRegistros">
+                    <thead class="thead-light">
+                      <tr>
+                      {%if tipo == "1"%}
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Banco</th>
+                        <th scope="col">Monto</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Teléfono</th>
+                      {%endif%}
+                      {%if tipo == "2"%}
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Banco</th>
+                        <th scope="col">Opción</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Teléfono</th>
+                      {%endif%}
+                      {%if tipo == "3"%}
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Banco</th>
+                        <th scope="col">Monto</th>
+                        <th scope="col">Teléfono</th>
+                      {%endif%}
+                      {%if tipo == "4"%}
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Banco</th>
+                        <th scope="col">Teléfono</th>
+                      {%endif%}
+                      {%if tipo == "5"%}
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Casa Comercial</th>
+                        <th scope="col">Monto</th>
+                        <th scope="col">Teléfono</th>
+                      {%endif%}
+                      {%if tipo == "6"%}
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Casa Comercial</th>
+                        <th scope="col">Producto</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Teléfono</th>
+                      {%endif%}
+                      {%if tipo == "7"%}
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Casa Comercial</th>
+                        <th scope="col">Monto</th>
+                        <th scope="col">Teléfono</th>
+                      {%endif%}
+                      {%if tipo == "8"%}
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Hora</th>
+                        <th scope="col">Médico</th>
+                        <th scope="col">Especialidad</th>
+                        <th scope="col">Centro</th>
+                        <th scope="col">Dirección</th>
+                        <th scope="col">Teléfono</th>
+                      {%endif%}
+                      {%if tipo == "9"%}
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Teléfono</th>
+                      {%endif%}
+                      {%if tipo == "0"%}
+                        {%if variables == "0"%}
+                        {%else%}
+                          {%if variables == "1"%}
+                            {%for num in range(1)%}
+                              <th scope="col">variable_{{num+1}}</th>
+                            {%endfor%}
+                          {%elif variables == "2"%}
+                            {%for num in range(2)%}
+                              <th scope="col">variable_{{num+1}}</th>
+                            {%endfor%}
+                          {%elif variables == "3"%}
+                            {%for num in range(3)%}
+                              <th scope="col">variable_{{num+1}}</th>
+                            {%endfor%}
+                          {%elif variables == "4"%}
+                            {%for num in range(4)%}
+                              <th scope="col">variable_{{num+1}}</th>
+                            {%endfor%}
+                          {%elif variables == "5"%}
+                            {%for num in range(5)%}
+                              <th scope="col">variable_{{num+1}}</th>
+                            {%endfor%}
+                          {%elif variables == "6"%}
+                            {%for num in range(6)%}
+                              <th scope="col">variable_{{num+1}}</th>
+                            {%endfor%}
+                          {%elif variables == "7"%}
+                            {%for num in range(7)%}
+                              <th scope="col">variable_{{num+1}}</th>
+                            {%endfor%}
+                          {%elif variables == "8"%}
+                            {%for num in range(8)%}
+                              <th scope="col">variable_{{num+1}}</th>
+                            {%endfor%}
+                          {%elif variables == "9"%}
+                            {%for num in range(9)%}
+                              <th scope="col">variable_{{num+1}}</th>
+                            {%endfor%}
+                          {%elif variables == "10"%}
+                            {%for num in range(10)%}
+                              <th scope="col">variable_{{num+1}}</th>
+                            {%endfor%}
+                          {%endif%}
+                        {%endif%}
+                        <th>Teléfono</th>
+                      {%endif%}                                          
+                      <th scope="col" class="text-center">Opciones</th>                       
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for canti in cantidad %}
+                        <tr id="nro{{canti}}">
+                          {% if tipo == "1" %}
+                            <td><input type="text" name="nombre{{canti}}" id="" class="form-control" value="{{datos[canti][0]}}"></td>
+                            <td><input type="text" name="banco{{canti}}" id="" class="form-control" value="{{datos[canti][1]}}"></td>
+                            <td><input type="text" name="monto{{canti}}" id="" class="form-control" value="{{datos[canti][2]}}"></td>
+                            <td><input type="date" name="fecha{{canti}}" id="" class="form-control" value="{{datos[canti][3].strftime('%Y-%m-%d')}}"></td>
+                            <td><input type="text" name="phone{{canti}}" id="" class="form-control" value="{{datos[canti][4]}}"></td>
+                            <td><button onclick="EliminarRegistro(nro{{canti}})" title="Eliminar Registro" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i></button></td>
+                            {% endif %}
+                            {%if tipo == "2"%}
+                            <td><input type="text" name="nombre{{canti}}" id="" class="form-control" value="{{datos[canti][0]}}"></td>
+                            <td><input type="text" name="banco{{canti}}" id="" class="form-control" value="{{datos[canti][1]}}"></td>
+                            <td><input type="text" name="opcion{{canti}}" id="" class="form-control" value="{{datos[canti][2]}}"></td>
+                            <td><input type="date" name="fecha{{canti}}" id="" class="form-control" value="{{datos[canti][3].strftime('%Y-%m-%d')}}"></td>
+                            <td><input type="text" name="phone{{canti}}" id="" class="form-control" value="{{datos[canti][4]}}"></td>
+                            <td><button onclick="EliminarRegistro(nro{{canti}})" title="Eliminar Registro" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i></button></td>
+                            {%endif%}
+                            {%if tipo == "3"%}
+                            <td><input type="text" name="nombre{{canti}}" id="" class="form-control" value="{{datos[canti][0]}}"></td>
+                            <td><input type="text" name="banco{{canti}}" id="" class="form-control" value="{{datos[canti][1]}}"></td>
+                            <td><input type="text" name="monto{{canti}}" id="" class="form-control" value="{{datos[canti][2]}}"></td>
+                            <td><input type="text" name="phone{{canti}}" id="" class="form-control" value="{{datos[canti][3]}}"></td>
+                            <td><button onclick="EliminarRegistro(nro{{canti}})" title="Eliminar Registro" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i></button></td>
+                            {%endif%}
+                            {%if tipo == "4"%}
+                            <td><input type="text" name="nombre{{canti}}" id="" class="form-control" value="{{datos[canti][0]}}"></td>
+                            <td><input type="text" name="banco{{canti}}" id="" class="form-control" value="{{datos[canti][1]}}"></td>
+                            <td><input type="text" name="phone{{canti}}" id="" class="form-control" value="{{datos[canti][2]}}"></td>
+                            <td><button onclick="EliminarRegistro(nro{{canti}})" title="Eliminar Registro" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i></button></td>
+                            {%endif%}
+                            {%if tipo == "5"%}
+                            <td><input type="text" name="nombre{{canti}}" id="" class="form-control" value="{{datos[canti][0]}}"></td>
+                            <td><input type="text" name="casa_comercial{{canti}}" id="" class="form-control" value="{{datos[canti][1]}}"></td>
+                            <td><input type="text" name="monto{{canti}}" id="" class="form-control" value="{{datos[canti][2]}}"></td>
+                            <td><input type="text" name="phone{{canti}}" id="" class="form-control" value="{{datos[canti][3]}}"></td>
+                            <td><button onclick="EliminarRegistro(nro{{canti}})" title="Eliminar Registro" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i></button></td>
+                            {%endif%}
+                            {%if tipo == "6"%}
+                            <td><input type="text" name="nombre{{canti}}" id="" class="form-control" value="{{datos[canti][0]}}"></td>
+                            <td><input type="text" name="casa_comercial{{canti}}" id="" class="form-control" value="{{datos[canti][1]}}"></td>
+                            <td><input type="text" name="producto{{canti}}" id="" class="form-control" value="{{datos[canti][2]}}"></td>
+                            <td><input type="date" name="fecha{{canti}}" id="" class="form-control" value="{{datos[canti][3].strftime('%Y-%m-%d')}}"></td>
+                            <td><input type="text" name="phone{{canti}}" id="" class="form-control" value="{{datos[canti][4]}}"></td>
+                            <td><button onclick="EliminarRegistro(nro{{canti}})" title="Eliminar Registro" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i></button></td>
+                            {%endif%}
+                            {%if tipo == "7"%}
+                            <td><input type="text" name="nombre{{canti}}" id="" class="form-control" value="{{datos[canti][0]}}"></td>
+                            <td><input type="text" name="casa_comercial{{canti}}" id="" class="form-control" value="{{datos[canti][1]}}"></td>
+                            <td><input type="text" name="monto{{canti}}" id="" class="form-control" value="{{datos[canti][2]}}"></td>
+                            <td><input type="text" name="phone{{canti}}" id="" class="form-control" value="{{datos[canti][3]}}"></td>
+                            <td><button onclick="EliminarRegistro(nro{{canti}})" title="Eliminar Registro" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i></button></td>
+                            {%endif%}
+                            {%if tipo == "8"%}
+                            <td><input type="text" name="nombre{{canti}}" id="" class="form-control" value="{{datos[canti][0]}}"></td>
+                            <td><input type="date" name="fecha{{canti}}" id="" class="form-control" value="{{datos[canti][1].strftime('%Y-%m-%d')}}"></td>
+                            <td><input type="time" name="hora{{canti}}" id="" class="form-control" value="{{datos[canti][2]}}"></td>
+                            <td><input type="text" name="medico{{canti}}" id="" class="form-control" value="{{datos[canti][3]}}"></td>
+                            <td><input type="text" name="especialidad{{canti}}" id="" class="form-control" value="{{datos[canti][4]}}"></td>
+                            <td><input type="text" name="centro{{canti}}" id="" class="form-control" value="{{datos[canti][5]}}"></td>
+                            <td><input type="text" name="direccion{{canti}}" id="" class="form-control" value="{{datos[canti][6]}}"></td>
+                            <td><input type="text" name="phone{{canti}}" id="" class="form-control" value="{{datos[canti][7]}}"></td>
+                            <td><button onclick="EliminarRegistro(nro{{canti}})" title="Eliminar Registro" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i></button></td>
+                            {%endif%}
+                            {%if tipo == "9"%}
+                            <td><input type="text" name="nombre{{canti}}" id="" class="form-control" value="{{datos[canti][0]}}"></td>
+                            <td><input type="text" name="tipo_2{{canti}}" id="" class="form-control" value="{{datos[canti][1]}}"></td>
+                            <td><input type="text" name="phone{{canti}}" id="" class="form-control" value="{{datos[canti][2]}}"></td>
+                            <td><button onclick="EliminarRegistro(nro{{canti}})" title="Eliminar Registro" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i></button></td>
+                            {%endif%}
+                            {%if tipo == "0"%}
+                            <input type="hidden" name="variables" id="variables" value={{variables}}>
+                              {%if variables == "0"%}
+                                <td><input type="text" name="phone{{canti}}" id="" class="form-control" value="{{datos[canti][0]}}"></td>
+                                <td class="text-center"><button onclick="EliminarRegistro(nro{{canti}})" title="Eliminar Registro" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i></button></td>
+                              {%else%}
+                                <input type="hidden" name="variables" value={{variables}}>
+                                  {%if variables == "1"%}
+                                    {%for num in range(1)%}
+                                    <td><input type="text" name="variable_{{canti}}_{{num}}" id="variable_{{canti}}_{{num}}" class="form-control" value="{{datos[canti][num]}}"></td>
+                                    {%endfor%}
+                                  {%elif variables == "2"%}
+                                    {%for num in range(2)%}
+                                    <td><input type="text" name="variable_{{canti}}_{{num}}" id="variable_{{canti}}_{{num}}" class="form-control" value="{{datos[canti][num]}}"></td>
+                                    {%endfor%}
+                                  {%elif variables == "3"%}
+                                    {%for num in range(3)%}
+                                    <td><input type="text" name="variable_{{canti}}_{{num}}" id="variable_{{canti}}_{{num}}" class="form-control" value="{{datos[canti][num]}}"></td>
+                                    {%endfor%}
+                                  {%elif variables == "4"%}
+                                    {%for num in range(4)%}
+                                    <td><input type="text" name="variable_{{canti}}_{{num}}" id="variable_{{canti}}_{{num}}" class="form-control" value="{{datos[canti][num]}}"></td>
+                                    {%endfor%}
+                                  {%elif variables == "5"%}
+                                    {%for num in range(5)%}
+                                    <td><input type="text" name="variable_{{canti}}_{{num}}" id="variable_{{canti}}_{{num}}" class="form-control" value="{{datos[canti][num]}}"></td>
+                                    {%endfor%}
+                                  {%elif variables == "6"%}
+                                    {%for num in range(6)%}
+                                    <td><input type="text" name="variable_{{canti}}_{{num}}" id="variable_{{canti}}_{{num}}" class="form-control" value="{{datos[canti][num]}}"></td>
+                                    {%endfor%}
+                                  {%elif variables == "7"%}
+                                    {%for num in range(7)%}
+                                    <td><input type="text" name="variable_{{canti}}_{{num}}" id="variable_{{canti}}_{{num}}" class="form-control" value="{{datos[canti][num]}}"></td>
+                                    {%endfor%}
+                                  {%elif variables == "8"%}
+                                    {%for num in range(8)%}
+                                    <td><input type="text" name="variable_{{canti}}_{{num}}" id="variable_{{canti}}_{{num}}" class="form-control" value="{{datos[canti][num]}}"></td>
+                                    {%endfor%}
+                                  {%elif variables == "9"%}
+                                    {%for num in range(9)%}
+                                    <td><input type="text" name="variable_{{canti}}_{{num}}" id="variable_{{canti}}_{{num}}" class="form-control" value="{{datos[canti][num]}}"></td>
+                                    {%endfor%}
+                                  {%elif variables == "10"%}
+                                    {%for num in range(10)%}
+                                    <td><input type="text" name="variable_{{canti}}_{{num}}" id="variable_{{canti}}_{{num}}" class="form-control" value="{{datos[canti][num]}}"></td>
+                                    {%endfor%}
+                                  {%endif%}
+                                <td><input type="text" name="phone{{canti}}" id="" class="form-control" value="{{datos[canti][-1]}}"></td>
+                                <td class="text-center"><button onclick="EliminarRegistro(nro{{canti}})" title="Eliminar Registro" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i></button></td>
+                                {%endif%}
+                          {%endif%}                            
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <input type="submit" class="btn btn-success" value="Confirmar datos">
+              </form>
+            </div>
+          </div>
+        </d>
+      </div>
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="row align-items-center justify-content-xl-between">
+        </div>
+      </footer>
+    </div>
+  </div>
+  <!--   Core   -->
+  <script src="{{url_for('static', filename='assets/js/plugins/jquery/dist/jquery.min.js')}}"></script>
+  <script src="{{url_for('static', filename='assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
+  <!--   JS   -->
+  <script src="{{url_for('static', filename='assets/js/voxcall-dashboard.min.js')}}"></script>
+  <script src="{{url_for('static', filename='assets/js/voxcall-common.js')}}"></script>
+  <script src="{{url_for('static', filename='assets/js/jquery-3.5.js')}}"></script>
+  <script src="{{url_for('static', filename='assets/js/jquery.dataTables.min.js')}}"></script>
+
+  
+  <script type="text/javascript">
+    $('#cantidad').val(0);
+
+    $(document).ready(function() {
+    $('#tablaRegistros').DataTable();
+} );
+</script>
+</body>
+</html>

@@ -9,7 +9,7 @@ class Manejo_archivos():
     def guardar(self):
         archivo = self.archivo
         nombre = archivo.filename
-        archivo.save(os.path.join("../daniel25109", nombre))
+        archivo.save(os.path.join("../voxcall", nombre))
 
     def contar_lineas(self):
         leidos = pyexcel.get_sheet(file_name = self.archivo.filename, name_columns_by_row=0)
