@@ -1,14 +1,16 @@
 from flask import Flask, render_template, request, flash, session, redirect
 from flask_wtf.csrf import CSRFProtect
-from flask_user import UserManager
+from sqlalchemy.sql.expression import false
 from database import init_db, db_session
-from models import Users, UsersForm, UserLoginForm, ImportExcel, Historico
+from models import Users, UsersForm, UserLoginForm, ImportExcel, Historico, Roles, UserChangePassword
 from contar_variables import Contar
 from manejo_archivos import Manejo_archivos
 from manejo_validate import Manejo_validate
 from sms_generico import Sms_generico
 from envia_whatsapp import Envio_whatsapp
 from datetime import datetime
+from werkzeug.security import generate_password_hash
+from flask_migrate import Migrate
 import pyexcel
 import os
 import datetime
@@ -26,39 +28,56 @@ SECRET_KEY = 'CLAVE_SECRETA_VOXCALL2021'
 
 db = init_db()
 
-user_manager = UserManager(app, Users)
+migrate = Migrate(app, db)
+
 
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html')
 
+@app.route('/users')
+def users():
+    if 'username' in session:
+        usuario = Users.query.filter(Users.username == session['username']).first()
+        if usuario.rol != 1:
+            return redirect('/menu')
+        else:
+            users = Users.query.filter(Users.rol != 1).all()
+            nombre_vista = "Inicio"
+            titulo_vista = "Voxcall - Menú"
+            return render_template('users2.html', users=users, usuario=usuario, nombre_vista = nombre_vista, titulo_vista = titulo_vista)
+            
 @app.route('/users/register')
 def user_register():
     if 'username' in session:
-        return redirect('/calls/menu')
-
-    return render_template('create.html')
+        usuario = Users.query.filter(Users.username == session['username']).first()
+        if usuario.rol != 1:
+            return redirect('/menu')
+        else:    
+            roles = Roles.query.all()
+            return render_template('create.html', data=roles)
 
 @app.route('/users/save', methods=['POST'])
 def user_save():
    form = UsersForm(request.form)
    if request.method == "POST":
-         usuario = Users.query.filter(Users.username == form.username.data).first()
-         if usuario == None:
+        usuario = Users.query.filter(Users.username == form.username.data).first()
+        if usuario == None:
             username = form.username.data
             password = form.password.data
             email = form.email.data
+            rol = form.rol.data
 
-            usuario = Users(username, password, email)
+            usuario = Users(username, password, email, rol)
             db_session.add(usuario)
             db_session.commit()
 
-            session['username'] = usuario.username
-            success_message = "Bienvenido "+usuario.username
-            flash(success_message)
-
-            return redirect('/calls/menu')
-         else:
+            if 'username' in session:
+                usuario = Users.query.filter(Users.username == session['username']).first()
+                if usuario.rol == 1:
+                    success_message = "Usuario creado correctamente"
+                    return redirect('/menu')
+        else:
             success_message = "El usuario ya existe en el sistema"
             flash(success_message)
             form = UsersForm()
@@ -68,23 +87,72 @@ def user_save():
        return redirect('users/register')
 
 
+@app.route("/users/delete/<int:id>")
+def user_delete(id:int):
+    if 'username' in session:
+        usuario = Users.query.filter(Users.username == session['username']).first()
+        if usuario.rol != 1:
+            return redirect('/menu')
+        else:
+            usuario = Users.query.filter(Users.id == id).first()
+            db_session.delete(usuario)
+            db_session.commit()
+
+            return redirect('/users')
+
+@app.route('/users/edit/<int:id>', methods=['GET','POST'])
+def user_edit(id:int):
+    if request.method == "GET":
+        if 'username' in session:
+            usuario = Users.query.filter(Users.id == id).first()
+            user = Users.query.filter(Users.username == session['username']).first()
+            roles = Roles.query.all()
+
+            return render_template('edit.html', usuario=usuario, roles=roles, user=user)
+
+    elif request.method == 'POST':
+        form = UsersForm(request.form)
+        usuario = Users.query.filter(Users.id == id).first()
+        user = Users.query.filter(Users.username == session['username']).first()
+
+        if form.username.data != "" and form.username.data != usuario.username:
+            usuario.username = form.username.data
+
+        if form.email.data != "" and form.email.data != usuario.email:
+            usuario.email = form.email.data
+        
+
+        if form.password.data != "" and generate_password_hash(form.password.data) != usuario.passwordhash:
+            usuario.passwordhash = generate_password_hash(form.password.data)
+            if user.rol == 1:
+                if usuario.cambio_clave == True:
+                    usuario.cambio_clave = False
+
+        db_session.commit()
+
+        if user.rol == 1:
+            return redirect('/users')
+        else:
+            return redirect('/menu')
+
+
 @app.route('/')
 @app.route('/users/login', methods=['GET','POST'])
 def user_login():
    if 'username' in session:
        success_message = "Usuario ya logueado"
        flash(success_message)
-       return redirect('/calls/menu')
+       return redirect('/menu')
 
-   form = UserLoginForm(request.form)
    if request.method == "POST":
       user = Users.query.filter(Users.username == request.form['username']).first()
       if user and user.check_password(request.form['password']):
          session['username'] = user.username
          success_message = "Bienvenido "+user.username
-         flash(success_message)
+         if user.cambio_clave == True:
+            flash(success_message)    
 
-         return redirect('/calls/menu')
+         return redirect('/menu')
       else:
          success_message = "Usuario y/o contraseña incorrectos"
          flash(success_message)
@@ -92,6 +160,29 @@ def user_login():
    else:
        return render_template('login.html')
 
+@app.route('/users/change_password', methods=['GET','POST'])
+def change_password():
+    if 'username' in session:
+        if request.method == "GET":
+            flash("Es necesario el cambio de contraseña.", 'warning')
+            return render_template('change_password.html')
+        elif request.method == "POST":
+            form = UserChangePassword(request.form)
+            user = Users.query.filter(Users.username == session['username']).first()
+            password = form.password.data
+            password_repite = form.password_repite.data
+
+            if password == password_repite:
+                user.password = generate_password_hash(password)
+                user.cambio_clave = True
+                db_session.commit()
+                flash("Contraseña cambiada exitosamente")
+                return redirect('/menu')
+            else:
+                flash("Contraseñas no son iguales")
+                return render_template('change_password.html')
+    else:
+        return redirect('/users/login')       
 
 @app.route('/users/logout')
 def user_logout():
@@ -122,10 +213,35 @@ def cargar():
     else:
         return redirect('/users/login')
 
-@app.route('/calls/menu')
+@app.route('/menu')
 def calls_menu():
     if 'username' in session:
-        return render_template('index.html')
+        usuario = Users.query.filter_by(username=session['username']).first()
+        if usuario.cambio_clave == False:
+            
+            return redirect('users/change_password')
+        else:
+            nombre_vista = "Inicio"
+            titulo_vista = "Voxcall - Menú"
+
+            return render_template('index.html', usuario = usuario, nombre_vista = nombre_vista, titulo_vista = titulo_vista)      
+    else:
+        return redirect('/users/login')
+
+@app.route('/historico')
+def cargar_historico():
+    if 'username' in session:
+        if request.method == 'GET':
+            user = session['username']
+            user = Users.query.filter_by(username=user).first()
+            data = Historico.query.filter_by(user_id = user.id).all()
+            usuario = Users.query.filter_by(username=session['username']).first()
+            nombre_vista = "Histórico"
+            titulo_vista = "Voxcall - Histórico"            
+
+            return render_template('historico.html', datos = data, usuario=usuario, nombre_vista = nombre_vista, titulo_vista=titulo_vista)
+        else:
+            return redirect('/menu')
     else:
         return redirect('/users/login')
 
@@ -244,7 +360,7 @@ def calls_validate():
                             else:
                                 monto = 0.0792    
                         
-                            hoy = datetime.now();
+                            hoy = datetime.now()
                             if 'username' in session:
                                 user = session['username']
                                 user = Users.query.filter_by(username=user).first()
@@ -274,7 +390,7 @@ def calls_validate():
                             else:
                                 monto = 0.0792    
                         
-                            hoy = datetime.datetime.now();
+                            hoy = datetime.datetime.now()
                             if 'username' in session:
                                 user = session['username']
                                 user = Users.query.filter_by(username=user).first()
@@ -302,7 +418,7 @@ def calls_validate():
                         else:
                             monto = 0.0792    
                         
-                        hoy = datetime.now();
+                        hoy = datetime.now()
                         if 'username' in session:
                             user = session['username']
                             user = Users.query.filter_by(username=user).first()
@@ -379,7 +495,7 @@ def calls_validate():
                         elemento.envio(con)                    
                     
 
-            return redirect('/calls/menu')
+            return redirect('/menu')
 
     else:
         return redirect('/users/login')
@@ -433,6 +549,7 @@ def historico():
         return render_template('index.html', form = login_form)
 
 if __name__=='__main__':
+    migrate.init_app(app, db)
     csrf.init_app(app)
 
     with app.app_context():

@@ -443,6 +443,8 @@ class Manejo_validate():
                 llama = Generico(textos[contador], int(linea[0:11]))
                 resultado = llama.llamada()
                 resultado = json.loads(resultado)
+                print("Acá va el resultado")
+                print(resultado)
                 del llama
                 tipo = "llamada"
                 if tipo == "llamada":

@@ -1,49 +1,67 @@
 from sqlalchemy import Column, BigInteger, String, DateTime, Date, ForeignKey, Float, Boolean
 from sqlalchemy.orm import relationship
-from flask_user import UserMixin
+from wtforms.fields.choices import SelectField
 from database import Base
 from werkzeug.security import generate_password_hash, check_password_hash
 import datetime
 from wtforms import Form
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, validators, FileField
-from wtforms.fields.html5 import EmailField
+from wtforms import StringField, FileField, EmailField, validators
+#from wtforms.fields.html5 import EmailField
 from wtforms.fields import PasswordField
 
-class Users(Base, UserMixin):
+
+class Roles(Base):
+    __tablename__='roles'
+    id = Column(BigInteger, primary_key=True)
+    nombre = Column(String(15), nullable=False)
+    create_at = Column(DateTime, default=datetime.datetime.utcnow)
+
+    def __init__(self, nombre):
+        self.nombre = nombre
+
+
+class Users(Base):
     __tablename__='users'
     id = Column(BigInteger, primary_key = True)
     estado = Column('is_active', Boolean, nullable=False, server_default="1")
-    username = Column(String(50, collation='NOCASE'), nullable=False, unique=True)
+    username = Column(String(50), nullable=False, unique=True)
     passwordhash = Column(String(300), nullable=False, server_default='')
     email = Column(String(60), nullable=False)
+    cambio_clave = Column(Boolean, nullable=False, server_default="0")
     create_at = Column(DateTime, default=datetime.datetime.utcnow)
-    llamada = relationship("Historico")
+    rol = Column(BigInteger, ForeignKey('roles.id'))
 
-    def __init__(self, username, passwordhash, email):
+    def __init__(self, username, passwordhash, email, id_rol):
         self.username = username
         self.email = email
         self.passwordhash = generate_password_hash(passwordhash)
+        self.rol = id_rol
 
     def check_password(self, password):
         return check_password_hash(self.passwordhash, password)
 
 
 class UsersForm(FlaskForm):
-    username = StringField('Usuario', [validators.Required()])
-    password = PasswordField('Contraseña', [validators.Required()])
-    email = EmailField('Email', [validators.Required()])
+    username = StringField('Usuario', [validators.DataRequired()])
+    password = PasswordField('Contraseña', [validators.DataRequired()])
+    email = EmailField('Email', [validators.DataRequired()])
+    rol = SelectField(label=Roles, choices=Roles.query.all())
 
 class UserLoginForm(FlaskForm):
-    username = StringField('Usuario', [validators.Required()])
-    password = PasswordField('Contraseña', [validators.Required()])
+    username = StringField('Usuario', [validators.DataRequired()])
+    password = PasswordField('Contraseña', [validators.DataRequired()])
 
+
+class UserChangePassword(FlaskForm):
+    password = PasswordField('Contraseña', [validators.DataRequired()])
+    password_repite = PasswordField('Contraseña', [validators.DataRequired()])
 
 class ImportExcel(Form):
     style={'class':'title_import'}
     archivo = FileField(u'Seleccionar archivo',
-            [validators.required()],
+            [validators],
             render_kw=style)
 
 

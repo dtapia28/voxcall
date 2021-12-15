@@ -2,32 +2,32 @@ $(document).ready(function(){
     $('#tipos').on('change', function(){
         var id_tipo = $(this).val();
         if(id_tipo == 1){
-            document.getElementById('tipo_2').remove();
-            $('#contiene_segundo_select').append('<select class="form-control" name="tipo_2" id="tipo_2" style="display: block" onchange="mostrarTexto()"></select>')
+            document.getElementById('select_msj').remove();
+            $('#contiene_segundo_select').append('<select class="form-control" name="select_msj" id="select_msj" style="display: block" onchange="mostrarTexto()"></select>')
             //document.getElementById('tipo_2').style.display = "block";
             //$('#tipo_2').empty();
-            $('#tipo_2').append("<option value='' selected disabled>Escoge una opción</option>");
-            $('#tipo_2').append("<option value='1'>Opción Crédito</option>");
-            $('#tipo_2').append("<option value='2'>Opción Producto</option>");
-            $('#tipo_2').append("<option value='3'>Cuota Impaga</option>");
-            $('#tipo_2').append("<option value='4'>Cambio de Clave</option>");
+            $('#select_msj').append("<option value='' selected disabled>Escoge una opción</option>");
+            $('#select_msj').append("<option value='1'>Opción Crédito</option>");
+            $('#select_msj').append("<option value='2'>Opción Producto</option>");
+            $('#select_msj').append("<option value='3'>Cuota Impaga</option>");
+            $('#select_msj').append("<option value='4'>Cambio de Clave</option>");
         } else if(id_tipo == 2) {
-            document.getElementById('tipo_2').remove();
-            $('#contiene_segundo_select').append('<select class="form-control" name="tipo_2" id="tipo_2" style="display: block" onchange="mostrarTexto()"></select>')
-            $('#tipo_2').append("<option value='' selected disabled>Escoge una opción</option>");
-            $('#tipo_2').append("<option value='5'>Aumento de Cupo</option>");
-            $('#tipo_2').append("<option value='6'>Entrega Producto</option>");
-            $('#tipo_2').append("<option value='7'>Cuota Impaga</option>");
-            document.getElementById('tipo_2').style.display = "block";
+            document.getElementById('select_msj').remove();
+            $('#contiene_segundo_select').append('<select class="form-control" name="select_msj" id="select_msj" style="display: block" onchange="mostrarTexto()"></select>')
+            $('#select_msj').append("<option value='' selected disabled>Escoge una opción</option>");
+            $('#select_msj').append("<option value='5'>Aumento de Cupo</option>");
+            $('#select_msj').append("<option value='6'>Entrega Producto</option>");
+            $('#select_msj').append("<option value='7'>Cuota Impaga</option>");
+            document.getElementById('select_msj').style.display = "block";
         } else if(id_tipo == 3) {
-            document.getElementById('tipo_2').remove();
-            $('#contiene_segundo_select').append('<select class="form-control" name="tipo_2" id="tipo_2" style="display: block" onchange="mostrarTexto()"></select>')
-            $('#tipo_2').append("<option value='' selected disabled>Escoge una opción</option>");
-            $('#tipo_2').append("<option value='8'>Hora médica</option>");
-            $('#tipo_2').append("<option value='9'>Entrega resultados</option>");
-            document.getElementById('tipo_2').style.display = "block";
+            document.getElementById('select_msj').remove();
+            $('#contiene_segundo_select').append('<select class="form-control" name="select_msj" id="select_msj" style="display: block" onchange="mostrarTexto()"></select>')
+            $('#select_msj').append("<option value='' selected disabled>Escoge una opción</option>");
+            $('#select_msj').append("<option value='8'>Hora médica</option>");
+            $('#select_msj').append("<option value='9'>Entrega resultados</option>");
+            document.getElementById('select_msj').style.display = "block";
         } else if(id_tipo == 4) {
-            document.getElementById('tipo_2').remove();
+            document.getElementById('select_msj').remove();
             $('#muestra_texto').empty();
             $('#formulario').append("<input type='hidden' id='tipo_2' name='tipo_2' value='prueba'>")
             $('#muestra_texto').empty();
@@ -37,27 +37,54 @@ $(document).ready(function(){
     });
 });
 
+function agrega_input_tipo_2(valor)
+{
+    if (valor >= 1) {
+        $('#muestra_texto').empty();
+        if (! document.getElementById('tipo_2')) {
+            $('#formulario').append("<input type='hidden' id='tipo_2' name='tipo_2' value='prueba'>");
+        }
+    }
+}
 
 function mostrarTexto(){
-    var evaluar = document.getElementById('tipo_2').value;
+    var evaluar = document.getElementById('select_msj').value;
     if(evaluar == 1){
-        document.getElementById('muestra_texto').innerHTML = "Hola {nombre} te estamos llamando porque tienes un crédito preaprobado {banco} de {monto}.Este crédito está disponible hasta el {fecha}. Hasta pronto.";
+        agrega_input_tipo_2(evaluar)
+        $('#muestra_texto').append("<textarea class='form-control' rows='10' cols='100' style = 'resize: none;' name='tipo_2_text' id='tipo_2_text' onmouseout='tomaValor()'>Hola {nombre} te estamos llamando porque tienes un crédito preaprobado {banco} de {monto}.Este crédito está disponible hasta el {fecha}. Hasta pronto.</textarea>")
+        document.getElementById('muestra_texto').style.display = "block";
     } else if(evaluar == 2){
-        document.getElementById('muestra_texto').innerHTML = "Hola {nombre} te estamos llamando a nombre del banco {banco} y tenemos una excelente opción para ti. {opcion}. Esto está disponible hasta el {fecha}. Hasta pronto.";
+        agrega_input_tipo_2(evaluar)
+        $('#muestra_texto').append("<textarea class='form-control' rows='10' cols='100' style = 'resize: none;' name='tipo_2_text' id='tipo_2_text' onmouseout='tomaValor()'>Hola {nombre} te estamos llamando a nombre del banco {banco} y tenemos una excelente opción para ti. {opcion}. Esto está disponible hasta el {fecha}. Hasta pronto.</textarea>")
+        document.getElementById('muestra_texto').style.display = "block";
     } else if(evaluar == 3){
-        document.getElementById('muestra_texto').innerHTML = "Hola {nombre} te estamos llamando a nombre del banco {banco} porque tienes una cuota impaga de {monto}. Por favor acercate a nuestras oficinas para regularizar tu situación. Te recordamos que la demora en el pago de la cuota genera intereses. Hasta pronto.";
+        agrega_input_tipo_2(evaluar)
+        $('#muestra_texto').append("<textarea class='form-control' rows='10' cols='100' style = 'resize: none;' name='tipo_2_text' id='tipo_2_text' onmouseout='tomaValor()'>Hola {nombre} te estamos llamando a nombre del banco {banco} porque tienes una cuota impaga de {monto}. Por favor acercate a nuestras oficinas para regularizar tu situación. Te recordamos que la demora en el pago de la cuota genera intereses. Hasta pronto.</textarea>")
+        document.getElementById('muestra_texto').style.display = "block";
     } else if(evaluar == 4){
-        document.getElementById('muestra_texto').innerHTML = "Hola {nombre} te estamos llamando a nombre del banco {banco} porque en nuestro sistema se ingresó un cambio de clave en tu cuenta. Si tú no has realizado el cambio, te solicitamos puedas entrar a tu sesión del banco para regularizar esto. Hasta pronto.";
+        agrega_input_tipo_2(evaluar)
+        $('#muestra_texto').append("<textarea class='form-control' rows='10' cols='100' style = 'resize: none;' name='tipo_2_text' id='tipo_2_text' onmouseout='tomaValor()'>Hola {nombre} te estamos llamando a nombre del banco {banco} porque en nuestro sistema se ingresó un cambio de clave en tu cuenta. Si tú no has realizado el cambio, te solicitamos puedas entrar a tu sesión del banco para regularizar esto. Hasta pronto.</textarea>")
+        document.getElementById('muestra_texto').style.display = "block";
     } else if(evaluar == 5){
-        document.getElementById('muestra_texto').innerHTML = "Hola {nombre} te estamos llamando de {casa comercial} para informarte que hemos aumentado tu cupo para realizar compras con crédito en nuestros locales. Tu nuevo cupo es {monto}. Hasta pronto.";
+        agrega_input_tipo_2(evaluar)
+        $('#muestra_texto').append("<textarea class='form-control' rows='10' cols='100' style = 'resize: none;' name='tipo_2_text' id='tipo_2_text' onmouseout='tomaValor()'>Hola {nombre} te estamos llamando de {casa comercial} para informarte que hemos aumentado tu cupo para realizar compras con crédito en nuestros locales. Tu nuevo cupo es {monto}. Hasta pronto.</textarea>")
+        document.getElementById('muestra_texto').style.display = "block";
     } else if(evaluar == 6){
-        document.getElementById('muestra_texto').innerHTML = "Hola {nombre} te estamos llamando de {casa comercial} para informarte que tu producto {producto} será entregado el día {fecha} en la dirección informada. Hasta pronto.";
+        agrega_input_tipo_2(evaluar)
+        $('#muestra_texto').append("<textarea class='form-control' rows='10' cols='100' style = 'resize: none;' name='tipo_2_text' id='tipo_2_text' onmouseout='tomaValor()'>Hola {nombre} te estamos llamando de {casa comercial} para informarte que tu producto {producto} será entregado el día {fecha} en la dirección informada. Hasta pronto.</textarea>")
+        document.getElementById('muestra_texto').style.display = "block";
     } else if(evaluar == 7){
-        document.getElementById('muestra_texto').innerHTML = "Hola {nombre} te estamos llamando de {casa comercial} porque tienes una cuota impaga de {monto}. Por favor acercate a nuestras tiendas para regularizar tu situación. Te recordamos que la demora en el pago de la cuota genera intereses. Hasta pronto.";
+        agrega_input_tipo_2(evaluar)
+        $('#muestra_texto').append("<textarea class='form-control' rows='10' cols='100' style = 'resize: none;' name='tipo_2_text' id='tipo_2_text' onmouseout='tomaValor()'>Hola {nombre} te estamos llamando de {casa comercial} porque tienes una cuota impaga de {monto}. Por favor acercate a nuestras tiendas para regularizar tu situación. Te recordamos que la demora en el pago de la cuota genera intereses. Hasta pronto.</textarea>")
+        document.getElementById('muestra_texto').style.display = "block";
     } else if(evaluar == 8){
-        document.getElementById('muestra_texto').innerHTML = "Hola {nombre} recuerde que tiene agendada una cita para el día {fecha} a las {hora} con {medico} {especialidad} en el {centro} ubicado en {direccion}. Hasta pronto.";
+        agrega_input_tipo_2(evaluar)
+        $('#muestra_texto').append("<textarea class='form-control' rows='10' cols='100' style = 'resize: none;' name='tipo_2_text' id='tipo_2_text' onmouseout='tomaValor()'>Hola {nombre} recuerde que tiene agendada una cita para el día {fecha} a las {hora} con {medico} {especialidad} en el {centro} ubicado en {direccion}. Hasta pronto.</textarea>")
+        document.getElementById('muestra_texto').style.display = "block";
     } else if(evaluar == 9){
-        document.getElementById('muestra_texto').innerHTML = "Hola {nombre} te informamos que el resultado de tu {tipo} ya está disponible. Hasta pronto.";
+        agrega_input_tipo_2(evaluar)
+        $('#muestra_texto').append("<textarea class='form-control' rows='10' cols='100' style = 'resize: none;' name='tipo_2_text' id='tipo_2_text' onmouseout='tomaValor()'>Hola {nombre} te informamos que el resultado de tu {tipo} ya está disponible. Hasta pronto.</textarea>")
+        document.getElementById('muestra_texto').style.display = "block";
     }
 
     var id_mensaje = document.getElementById('tipo_2').value;

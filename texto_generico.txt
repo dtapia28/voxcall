@@ -1,1 +1,1 @@
-Esta es una prueba
+Hola {nombre} te estamos llamando a nombre del banco {banco} porque en nuestro sistema se ingresó un cambio de clave en tu cuenta. Si tú no has realizado el cambio, te solicitamos puedas entrar a tu sesión del banco para regularizar esto. Hasta pronto.
