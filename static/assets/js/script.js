@@ -1,3 +1,5 @@
+var sel_ws = 0;
+
 $(document).ready(function(){
     $('#tipos').on('change', function(){
         var id_tipo = $(this).val();
@@ -35,6 +37,35 @@ $(document).ready(function(){
             document.getElementById('muestra_texto').style.display = "block";
         }
     });
+    
+    $("input[name='type']").on('change', function() {
+        var seleccion = $('input[name="type"]:checked').val();
+        if (seleccion == 'whatsapp') {
+            $('#txt_msg1').text("Plantillas creadas");
+            $('#txt_msg2').text("");
+            document.getElementById('tipos').remove();
+            $('#contiene_primer_select').append('<select class="form-control" name="tipos" id="tipos" style="display: block" onchange="opcionesWhatsapp(this.value)"></select>');
+            $('#tipos').append("<option value='0' selected disabled>Escoge una opción</option>");
+            $('#tipos').append("<option value='1'>Crear nueva plantilla</option>");
+            $("#contiene_primer_select").css({ display: "block" });
+            $("#contiene_segundo_select").css({ display: "none" });
+            sel_ws = 1;
+        } else if (sel_ws == 1) {
+            $('#txt_msg1').text("Tipo de mensaje");
+            $('#txt_msg2').text("Tipo de mensaje");
+            document.getElementById('tipos').remove();
+            document.getElementById('select_msj').remove();
+            $('#contiene_primer_select').append('<select class="form-control" name="tipos" id="tipos" style="display: block"></select>');
+            $('#contiene_segundo_select').append('<select class="form-control" name="select_msj" id="select_msj" style="display: none" onchange="mostrarTexto()"></select>')
+            $('#tipos').append("<option value='0'>Seleccione...</option>");
+            $('#tipos').append("<option value='1'>Bancario</option>");
+            $('#tipos').append("<option value='2'>Casa Comercial</option>");
+            $('#tipos').append("<option value='3'>Hospitalario</option>");
+            $('#tipos').append("<option value='4'>Genérico</option>");
+            $("#contiene_segundo_select").css({ display: "block" });
+            sel_ws = 0;
+        }
+    }); 
 });
 
 function agrega_input_tipo_2(valor)
@@ -122,4 +153,26 @@ function mostrarTexto(){
 function tomaValor(){
     var valor = document.getElementById('tipo_2_text').value;
     document.getElementById('tipo_2').value = valor;
+}
+
+function opcionesWhatsapp(valor) {
+    if (valor == 1) {
+        $("#muestra_texto").css({ display: "block" });
+        $("#muestra_texto").text("Ingrese el texto de la nueva plantilla");
+        $('#muestra_texto').append("<textarea class='form-control mt-2' rows='10' cols='100' style = 'resize: none;' name='tipo_ws_text' id='tipo_ws_text'></textarea>");
+        $('#muestra_texto').append("<div class='text-center mt-4'><input class='btn btn-primary' class='btn_save' type='submit' value='Guardar' onclick='guardarPlantillaWhatsapp()'></div>");
+    }
+}
+
+function guardarPlantillaWhatsapp() {
+    var texto = $('#tipo_ws_text');
+    
+    if (texto.val() != "" && texto.val() != null) {
+        if (confirm('¿Confirma guardar la plantilla?')) {
+            alert("Plantilla creada con éxito, ahora estará en proceso de validación");
+            texto.val("");
+        }
+    } else {
+        alert ("Debe ingresar el texto de la plantilla");
+    }
 }

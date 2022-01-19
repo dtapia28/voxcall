@@ -43,8 +43,8 @@ def users():
             return redirect('/menu')
         else:
             users = Users.query.filter(Users.rol != 1).all()
-            nombre_vista = "Inicio"
-            titulo_vista = "Voxcall - Menú"
+            nombre_vista = "Usuarios"
+            titulo_vista = "Voxcall - Usuarios"
             return render_template('users2.html', users=users, usuario=usuario, nombre_vista = nombre_vista, titulo_vista = titulo_vista)
             
 @app.route('/users/register')

@@ -57,7 +57,8 @@ function AgregarRegistro() {
         '></td><td class="text-center"><button onclick="EliminarRegistro('+nro+
         ')" title="Eliminar Registro" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i></button></td></tr>';
 
-        $('#tablaRegistros tbody').append(registro);
+        // $('#tablaRegistros tbody').append(registro);
+        $('#tablaRegistros').DataTable().row.add($(registro)).draw();
 
         var nFilas = $("#tablaRegistros tbody tr").length;
         var cantidad = [];
@@ -118,7 +119,8 @@ function AgregarRegistro() {
 
         var registro = '<tr id="'+nro+'"><td name=nombre'+i+'>'+nombre+'</td><td name=banco'+i+'>'+banco+'</td><td name=opcion'+i+'>'+opcion+'</td><td name=fecha'+i+'>'+fecha+'</td><td name=phone'+i+'>'+telefono+'</td><td class="text-center"><button onclick="EliminarRegistro('+nro+')" title="Eliminar Registro" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i></button></td></tr>';
 
-        $('#tablaRegistros tbody').append(registro);
+        // $('#tablaRegistros tbody').append(registro);
+        $('#tablaRegistros').DataTable().row.add($(registro)).draw();
 
         var nFilas = $("#tablaRegistros tbody tr").length;
         var cantidad = [];
@@ -173,7 +175,8 @@ function AgregarRegistro() {
 
         var registro = '<tr id="'+nro+'"><td name=nombre'+i+'>'+nombre+'</td><td name=banco'+i+'>'+banco+'</td><td name=monto'+i+'>'+monto+'</td><td name=phone'+i+'>'+telefono+'</td><td class="text-center"><button onclick="EliminarRegistro('+nro+')" title="Eliminar Registro" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i></button></td></tr>';
 
-        $('#tablaRegistros tbody').append(registro);
+        // $('#tablaRegistros tbody').append(registro);
+        $('#tablaRegistros').DataTable().row.add($(registro)).draw();
 
         var nFilas = $("#tablaRegistros tbody tr").length;
         var cantidad = [];
@@ -223,7 +226,8 @@ function AgregarRegistro() {
 
         var registro = '<tr id="'+nro+'"><td name=nombre'+i+'>'+nombre+'</td><td name=banco'+i+'>'+banco+'</td><td name=phone'+i+'>'+telefono+'</td><td class="text-center"><button onclick="EliminarRegistro('+nro+')" title="Eliminar Registro" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i></button></td></tr>';
 
-        $('#tablaRegistros tbody').append(registro);
+        // $('#tablaRegistros tbody').append(registro);
+        $('#tablaRegistros').DataTable().row.add($(registro)).draw();
 
         var nFilas = $("#tablaRegistros tbody tr").length;
         var cantidad = [];
@@ -278,7 +282,8 @@ function AgregarRegistro() {
 
         var registro = '<tr id="'+nro+'"><td name=nombre'+i+'>'+nombre+'</td><td name=casa_comercial'+i+'>'+casa_comercial+'</td><td name=monto'+i+'>'+monto+'</td><td name=phone'+i+'>'+telefono+'</td><td class="text-center"><button onclick="EliminarRegistro('+nro+')" title="Eliminar Registro" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i></button></td></tr>';
 
-        $('#tablaRegistros tbody').append(registro);
+        // $('#tablaRegistros tbody').append(registro);
+        $('#tablaRegistros').DataTable().row.add($(registro)).draw();
 
         var nFilas = $("#tablaRegistros tbody tr").length;
         var cantidad = [];
@@ -338,7 +343,8 @@ function AgregarRegistro() {
 
         var registro = '<tr id="'+nro+'"><td name=nombre'+i+'>'+nombre+'</td><td name=casa_comercial'+i+'>'+casa_comercial+'</td><td name=producto'+i+'>'+producto+'</td><td name=fecha'+i+'>'+fecha+'</td><td name=phone'+i+'>'+telefono+'</td><td class="text-center"><button onclick="EliminarRegistro('+nro+')" title="Eliminar Registro" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i></button></td></tr>';
 
-        $('#tablaRegistros tbody').append(registro);
+        // $('#tablaRegistros tbody').append(registro);
+        $('#tablaRegistros').DataTable().row.add($(registro)).draw();
 
         var nFilas = $("#tablaRegistros tbody tr").length;
         var cantidad = [];
@@ -393,7 +399,8 @@ function AgregarRegistro() {
 
         var registro = '<tr id="'+nro+'"><td name=nombre'+i+'>'+nombre+'</td><td name=casa_comercial'+i+'>'+casa_comercial+'</td><td name=monto'+i+'>'+monto+'</td><td name=phone'+i+'>'+telefono+'</td><td class="text-center"><button onclick="EliminarRegistro('+nro+')" title="Eliminar Registro" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i></button></td></tr>';
 
-        $('#tablaRegistros tbody').append(registro);
+        // $('#tablaRegistros tbody').append(registro);
+        $('#tablaRegistros').DataTable().row.add($(registro)).draw();
 
         var nFilas = $("#tablaRegistros tbody tr").length;
         var cantidad = [];
@@ -468,7 +475,8 @@ function AgregarRegistro() {
 
         var registro = '<tr id="'+nro+'"><td name=nombre'+i+'>'+nombre+'</td><td name=fecha'+i+'>'+fecha+'</td><td name=hora'+i+'>'+hora+'</td><td name=medico'+i+'>'+medico+'</td><td name=especialidad'+i+'>'+especialidad+'</td><td name=centro'+i+'>'+centro+'</td><td name=direccion'+i+'>'+direccion+'</td><td name=phone'+i+'>'+telefono+'</td><td class="text-center"><button onclick="EliminarRegistro('+nro+')" title="Eliminar Registro" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i></button></td></tr>';
 
-        $('#tablaRegistros tbody').append(registro);
+        // $('#tablaRegistros tbody').append(registro);
+        $('#tablaRegistros').DataTable().row.add($(registro)).draw();
 
         var nFilas = $("#tablaRegistros tbody tr").length;
         var cantidad = [];
@@ -514,7 +522,8 @@ function AgregarRegistro() {
 
         var registro = '<tr id="'+nro+'"><td name=nombre'+i+'>'+nombre+'</td><td name=tipo'+i+'>'+tipo+'</td><td name=phone'+i+'>'+telefono+'</td><td class="text-center"><button onclick="EliminarRegistro('+nro+')" title="Eliminar Registro" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i></button></td></tr>';
 
-        $('#tablaRegistros tbody').append(registro);
+        // $('#tablaRegistros tbody').append(registro);
+        $('#tablaRegistros').DataTable().row.add($(registro)).draw();
 
         var nFilas = $("#tablaRegistros tbody tr").length;
         var cantidad = [];
@@ -568,7 +577,8 @@ function AgregarRegistro() {
                     ' class="form-control"></td><td class="text-center"><button onclick="EliminarRegistro('+nro+
                     ')" title="Eliminar Registro" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i></button></td></tr>';
 
-                    $('#tablaRegistros tbody').append(registro);
+                    // $('#tablaRegistros tbody').append(registro);
+                    $('#tablaRegistros').DataTable().row.add($(registro)).draw();
 
                     var nFilas = $("#tablaRegistros tbody tr").length;
                     var cantidad = [];
@@ -623,7 +633,8 @@ function AgregarRegistro() {
                     ' class="form-control"></td><td class="text-center"><button onclick="EliminarRegistro('+nro+
                     ')" title="Eliminar Registro" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i></button></td></tr>';
 
-                    $('#tablaRegistros tbody').append(registro);
+                    // $('#tablaRegistros tbody').append(registro);
+                    $('#tablaRegistros').DataTable().row.add($(registro)).draw();
 
                     var nFilas = $("#tablaRegistros tbody tr").length;
                     var cantidad = [];
@@ -685,7 +696,8 @@ function AgregarRegistro() {
                     ' class="form-control"></td><td class="text-center"><button onclick="EliminarRegistro('+nro+
                     ')" title="Eliminar Registro" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i></button></td></tr>';
 
-                    $('#tablaRegistros tbody').append(registro);
+                    // $('#tablaRegistros tbody').append(registro);
+                    $('#tablaRegistros').DataTable().row.add($(registro)).draw();
 
                     var nFilas = $("#tablaRegistros tbody tr").length;
                     var cantidad = [];
@@ -754,8 +766,9 @@ function AgregarRegistro() {
                     ' class="form-control"></td><td class="text-center"><button onclick="EliminarRegistro('+nro+
                     ')" title="Eliminar Registro" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i></button></td></tr>';
 
-                    $('#tablaRegistros tbody').append(registro);
-
+                    // $('#tablaRegistros tbody').append(registro);
+                    $('#tablaRegistros').DataTable().row.add($(registro)).draw();
+                    
                     var nFilas = $("#tablaRegistros tbody tr").length;
                     var cantidad = [];
                     for (let index = 0; index < nFilas; index++) {
@@ -819,7 +832,8 @@ function AgregarRegistro() {
                     '_'+2+'>'+elemento2+'</td><td name=variable_'+i+'_'+3+'>'+elemento3+'</td><td name=variable_'+i+'_'+4+'>'+elemento4+'</td><td name=phone'+i+'>'+
                     telefono+'</td><td class="text-center"><button onclick="EliminarRegistro('+nro+')" title="Eliminar Registro" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i></button></td></tr>';
 
-                    $('#tablaRegistros tbody').append(registro);
+                    // $('#tablaRegistros tbody').append(registro);
+                    $('#tablaRegistros').DataTable().row.add($(registro)).draw();
 
                     var nFilas = $("#tablaRegistros tbody tr").length;
                     var cantidad = [];
@@ -889,7 +903,8 @@ function AgregarRegistro() {
                     '_'+2+'>'+elemento2+'</td><td name=variable_'+i+'_'+3+'>'+elemento3+'</td><td name=variable_'+i+'_'+4+'>'+elemento4+'</td><td name=variable_'+i+
                     '_'+5+'>'+elemento5+'</td><td name=phone'+i+'>'+telefono+'</td><td class="text-center"><button onclick="EliminarRegistro('+nro+')" title="Eliminar Registro" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i></button></td></tr>';
 
-                    $('#tablaRegistros tbody').append(registro);
+                    // $('#tablaRegistros tbody').append(registro);
+                    $('#tablaRegistros').DataTable().row.add($(registro)).draw();
 
                     var nFilas = $("#tablaRegistros tbody tr").length;
                     var cantidad = [];
@@ -933,8 +948,9 @@ function AgregarRegistro() {
             ' class="form-control"></td><td class="text-center"><button onclick="EliminarRegistro('+nro+
             ')" title="Eliminar Registro" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i></button></td></tr>';        
             
-            $('#tablaRegistros tbody').append(registro);
-                
+            // $('#tablaRegistros tbody').append(registro);
+            $('#tablaRegistros').DataTable().row.add($(registro)).draw();
+
             var nFilas = $("#tablaRegistros tbody tr").length;
             var cantidad = [];
             for (let index = 0; index < nFilas; index++) {
@@ -975,8 +991,10 @@ function GuardarRegistros() {
 
 function EliminarRegistro(idRow) {
     var cantidad = $('#ultima').val();
-
-    $("#tablaRegistros tbody").find(idRow).remove();
+    var idDelete = idRow.getAttribute('id');
+    
+    // $("#tablaRegistros tbody").find(idRow).remove();
+    $('#tablaRegistros').DataTable().row($('#'+idDelete)).remove().draw();
 
     var nFilas = $("#tablaRegistros tbody tr").length;
     var cantidad = [];
